@@ -1,0 +1,170 @@
+* {
+    margin: 0px;
+    font-family: Helvetica, "Helvetica Neue", Roboto, Noto, Arial, sans-serif;
+}
+
+body {
+    width: 1519px;
+    height: 898px;
+    position: relative;
+    background-image: url("../img/bgHome.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#RootWrapperHome {
+    min-height: 100vh;
+    position: relative;
+}
+
+#Header {
+    height: 60px;
+    background-color: white;
+    position: sticky;
+    box-shadow: 0px 8px 16px rgba(9, 30, 66, 0.15);
+    left: 0px;
+    top: 0px;
+    right: 0px;
+}
+
+#Div {
+    width: 101px;
+    height: 60px;
+    position: absolute;
+    top: 0px;
+    right: 103px;
+}
+
+#LogIn {
+    color: rgb(23, 43, 77);
+    text-overflow: ellipsis;
+    font-size: 18px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 29px;
+    text-align: left;
+    position: absolute;
+    left: 24px;
+    top: 15px;
+}
+
+#Logo {
+    width: 111px;
+    height: 38px;
+    object-fit: cover;
+    position: absolute;
+    left: 129px;
+    top: 11px;
+}
+
+#ManageAllYourProjectTasksAndFilesInOnePlace {
+    color: white;
+    text-overflow: ellipsis;
+    font-size: 40px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 60px;
+    text-align: left;
+    width: 471px;
+    min-height: 183px;
+    position: absolute;
+    left: 537px;
+    top: 257px;
+    height: 183px;
+}
+
+#WorkOnYourProjectFromAnywhere {
+    color: white;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: left;
+    width: 500px;
+    min-height: 57px;
+    position: absolute;
+    left: 537px;
+    top: 448px;
+    height: 57px;
+}
+
+#Form {
+    width: 538px;
+    height: 50px;
+    position: absolute;
+    left: 537px;
+    top: 607px;
+}
+
+#EmailInput {
+    width: 342px;
+    height: 50px;
+    background-color: white;
+    border: solid 1px rgb(223, 225, 230);
+    border-radius: 5px;
+    position: relative;
+    left: -42px;
+    top: 0px;
+}
+
+#Email {
+    color: rgb(151, 160, 175);
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    text-align: left;
+    min-height: 21px;
+    left: 13px;
+    top: 13px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: solid 1px rgb(223, 225, 230);
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#SignUpButton {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    border: solid 1px undefined;
+    border-radius: 5px;
+    background: linear-gradient(-135deg, rgb(82, 67, 170), rgb(237, 80, 180));
+    box-sizing: border-box;
+    padding-bottom: 14px;
+    padding-top: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    left: 316px;
+    top: 0px;
+    width: 164px;
+    height: 50px;
+    color: white;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+}
+
+#Copyright2023Operis {
+    color: rgb(233, 233, 233);
+    text-overflow: ellipsis;
+    font-size: 13px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    width: 159px;
+    min-height: 16px;
+    position: absolute;
+    left: 681px;
+    top: 852px;
+    height: 16px;
+}
