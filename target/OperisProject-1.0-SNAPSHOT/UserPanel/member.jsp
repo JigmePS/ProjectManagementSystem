@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -222,16 +223,16 @@
     <div class="plist">
 
         <div class="topnav">
-            <span>Project Name</span>
+            <span>${pname}</span>
             <div class="topnav-right">
                 <div class="dropdown">
-                    <button class="dropbtn">Option
+                    <button class="dropbtn">${option}
                         <i class="uil uil-angle-down"></i>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#"><i class="uil uil-chart"></i> Tasks</a>
-                        <a href="#"><i class="uil uil-user"></i> Members</a>
-                        <a href="#"><i class="uil uil-setting"></i> Settings</a>
+                        <a href="user?page=tasks"><i class="uil uil-chart"></i> Tasks</a>
+                        <a href="user?page=member"><i class="uil uil-user"></i> Members</a>
+                        <a href="user?page=setting"><i class="uil uil-setting"></i> Settings</a>
                     </div>
                 </div>
             </div>
@@ -240,7 +241,7 @@
         <div>
             <form>
                 <div class="sbar">
-                    <input type="text" class="sfield" placeholder="Search" />
+                    <input type="text" class="sfield" name="sresult" placeholder="Search"/>
                     <button type="submit" class="sicon">
                         <i class="uil uil-search"></i>
                     </button>
@@ -252,10 +253,12 @@
             <div class="table-container">
                 <table class="task-table">
                     <tbody id="paginated-list" data-current-page="1" aria-live="polite">
-                    <tr>
-                        <td class="sname">224234</td>
-                        <td class="joinreq"><a href="">Join</a></td>
-                    </tr>
+                    <c:forEach var="member" items="${mlist}">
+                        <tr>
+                            <td class="sname">${member.fullname}</td>
+                            <td class="joinreq"><a href="user?page=memberadd&id=${member.id}">Join</a></td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

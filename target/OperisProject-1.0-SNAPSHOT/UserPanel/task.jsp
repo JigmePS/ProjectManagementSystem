@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -86,6 +87,22 @@
             display: block;
         }
 
+        .taddbtn {
+            display: inline-block;
+            right: 0;
+            vertical-align: middle;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            /* Important for vertical align on mobile phones */
+            margin: 0;
+            /* Important for vertical align on mobile phones */
+        }
+
         .table-container {
             height: 79vh;
             border-bottom: 1px solid var(--border-color);
@@ -103,7 +120,7 @@
             border-bottom: 2px solid var(--border-color);
             overflow: hidden;
             text-align: left;
-            width: 16.5%;
+            width: 17%;
             padding-top: 12px;
             padding-bottom: 12px;
         }
@@ -113,6 +130,20 @@
             overflow: hidden;
             padding-top: 10px;
             padding-bottom: 10px;
+        }
+
+        .action {
+            text-align: center;
+        }
+
+        .task-table a {
+            text-align: center;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid;
+            border-radius: 10px;
+            background-color: var(--box3-color);
+            color: var(--text-color);
         }
 
         .hidden {
@@ -166,18 +197,19 @@
     <div class="plist">
 
         <div class="topnav">
-            <span>Project Name</span>
+            <span>${pname}</span>
             <div class="topnav-right">
                 <div class="dropdown">
-                    <button class="dropbtn">Option
+                    <button class="dropbtn">${option}
                         <i class="uil uil-angle-down"></i>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#"><i class="uil uil-chart"></i> Tasks</a>
-                        <a href="#"><i class="uil uil-user"></i> Members</a>
-                        <a href="#"><i class="uil uil-setting"></i> Settings</a>
+                        <a href="user?page=tasks"><i class="uil uil-chart"></i> Tasks</a>
+                        <a href="user?page=member"><i class="uil uil-user"></i> Members</a>
+                        <a href="user?page=setting"><i class="uil uil-setting"></i> Settings</a>
                     </div>
                 </div>
+                <a class="taddbtn" href="user?page=addt"><i class="uil uil-plus-circle"></i></a>
             </div>
         </div>
 
@@ -195,14 +227,17 @@
                     </tr>
                     </thead>
                     <tbody id="paginated-list" data-current-page="1" aria-live="polite">
-                    <tr>
-                        <td>224234</td>
-                        <td>Task1</td>
-                        <td>User1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <c:forEach var="task" items="${tlist}">
+                        <tr>
+                            <td>${task.tdate}</td>
+                            <td>${task.tname}</td>
+                            <td>${task.taskMember}</td>
+                            <td>${task.deliverable}</td>
+                            <td>${task.imge}</td>
+                            <td class="action"><a class="editbtn" href="user?page=editt&tid=${task.tid}"><i
+                                    class="uil uil-edit-alt"></i>Edit</a></td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -222,10 +257,6 @@
             </nav>
         </main>
 
-
-
-    </div>
-
     </div>
 
 </section>
@@ -237,7 +268,7 @@
     const nextButton = document.getElementById("next-button");
     const prevButton = document.getElementById("prev-button");
 
-    const paginationLimit = 13
+    const paginationLimit = 11
     // <---yo number le page ma list item ko limit rakhne
     const pageCount = Math.ceil(listItems.length / paginationLimit);
     let currentPage = 1;

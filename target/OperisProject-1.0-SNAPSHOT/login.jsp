@@ -21,7 +21,7 @@
                 Log in to Operis
             </span>
 
-        <form action="user" id="Form">
+        <form action="user?page=login" id="Form">
 
             <input type="hidden" name="page" value="LOGIN">
 

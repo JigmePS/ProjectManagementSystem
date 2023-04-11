@@ -124,7 +124,7 @@
 </head>
 
 <body>
-<%@ include file="../include/abase.jsp"%>
+<%@ include file="../include/abase.jsp" %>
 
 <section class="dashboard">
 
@@ -133,7 +133,7 @@
         <div class="topnav">
             <form>
                 <div class="sbar">
-                    <input type="text" class="sfield" placeholder="Search" />
+                    <input type="text" class="sfield" placeholder="Search"/>
                     <button type="submit" class="sicon">
                         <i class="uil uil-search"></i>
                     </button>
@@ -177,10 +177,6 @@
                 </button>
             </nav>
         </main>
-
-
-
-    </div>
 
     </div>
 

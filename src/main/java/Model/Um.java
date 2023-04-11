@@ -16,11 +16,20 @@ public class Um {
 
     private String pname;
 
-    private int pstatus;
+    private String pstatus;
 
-    private int taskDate;
+    private int tid;
 
-    private String taskName;
+    private String tdate;
+
+    private String tname;
+
+    private String taskMember;
+
+    private String deliverable;
+
+    private String imge;
+
 
     public int getId() {
         return id;
@@ -78,27 +87,59 @@ public class Um {
         this.pname = pname;
     }
 
-    public int getPstatus() {
+    public String getPstatus() {
         return pstatus;
     }
 
-    public void setPstatus(int pstatus) {
+    public void setPstatus(String pstatus) {
         this.pstatus = pstatus;
     }
 
-    public int getTaskDate() {
-        return taskDate;
+    public int getTid() {
+        return tid;
     }
 
-    public void setTaskDate(int taskDate) {
-        this.taskDate = taskDate;
+    public void setTid(int tid) {
+        this.tid = tid;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public String getTdate() {
+        return tdate;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setTdate(String tdate) {
+        this.tdate = tdate;
+    }
+
+    public String getTname() {
+        return tname;
+    }
+
+    public void setTname(String tname) {
+        this.tname = tname;
+    }
+
+    public String getTaskMember() {
+        return taskMember;
+    }
+
+    public void setTaskMember(String taskMember) {
+        this.taskMember = taskMember;
+    }
+
+    public String getDeliverable() {
+        return deliverable;
+    }
+
+    public void setDeliverable(String deliverable) {
+        this.deliverable = deliverable;
+    }
+
+    public String getImge() {
+        return imge;
+    }
+
+    public void setImge(String imge) {
+        this.imge = imge;
     }
 }

@@ -76,9 +76,9 @@
             <span><b>Profile</b></span>
         </div>
         <div class="pcase">
-            <span>Full Name  <a href="#"><i class="uil uil-edit"></i></a></span>
+            <span>Full Name  <a href="user?page=editfn"><i class="uil uil-edit"></i></a></span>
             <span class="equals">${fname}</span>
-            <span>Password  <a href="#"><i class="uil uil-edit"></i></a></span>
+            <span>Password  <a href="user?page=editup"><i class="uil uil-edit"></i></a></span>
             <span class="equals">*****</span>
         </div>
 
@@ -86,7 +86,7 @@
             <span><b>Contact</b></span>
         </div>
         <div class="ccase">
-            <span>Email address  <a href="#"><i class="uil uil-edit"></i></a></span>
+            <span>Email address  <a href="user?page=editem"><i class="uil uil-edit"></i></a></span>
             <span class="equals">${email}</span>
         </div>
 

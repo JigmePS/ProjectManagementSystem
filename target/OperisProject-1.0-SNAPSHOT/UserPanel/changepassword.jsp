@@ -52,7 +52,8 @@
             outline: none;
         }
 
-        .paddbtn {
+        .neditbtn {
+            margin-top: 30px;
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -63,7 +64,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Add Project</title>
+    <title>Change Password</title>
 </head>
 
 <body>
@@ -74,17 +75,20 @@
     <div>
 
         <div class="topnav">
-            <span>Create New Project</span>
+            <span>Change Password</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=addproject" method="post" class="addform">
-                <label>Project Name:</label>
-                <input type="text" class="pfield" name="pname">
-                <input type="submit" value="Add" class="paddbtn">
+            <form class="addform">
+                <label>Old Password: (Enter password to verify yourself)</label>
+                <input type="text" class="pfield" name="tpassword">
+
+                <label>New Password:</label>
+                <input type="text" class="pfield" name="npassword">
+
+                <input type="submit" value="Edit" class="neditbtn">
             </form>
         </div>
-
 
     </div>
 

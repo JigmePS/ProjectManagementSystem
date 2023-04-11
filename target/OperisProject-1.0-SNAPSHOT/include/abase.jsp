@@ -519,15 +519,15 @@
 
   <div class="menu-items">
     <ul class="nav-links">
-      <li><a href="#">
+      <li><a href="admin?page=home">
         <i class="uil uil-estate"></i>
         <span class="link-name">Home</span>
       </a></li>
-      <li><a href="user?page=listUser">
+      <li><a href="admin?page=user">
         <i class="uil uil-user"></i>
         <span class="link-name">Users</span>
       </a></li>
-      <li><a href="help.jsp">
+      <li><a href="admin?page=project">
         <i class="uil uil-chart"></i>
         <span class="link-name">Projects</span>
       </a></li>
@@ -536,7 +536,7 @@
     </ul>
 
     <ul class="logout-mode">
-      <li><a href="logout">
+      <li><a href="#">
         <i class="uil uil-user-circle"></i>
         <span class="link-name">Profile</span>
       </a></li>
@@ -550,7 +550,7 @@
           <span class="switch"></span>
         </div>
       </li>
-      <li><a href="logout">
+      <li><a href="admin?page=logout">
         <i class="uil uil-signout"></i>
         <span class="link-name">Logout</span>
       </a></li>

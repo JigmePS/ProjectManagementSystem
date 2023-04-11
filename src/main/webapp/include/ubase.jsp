@@ -519,7 +519,7 @@
 
     <div class="menu-items">
         <ul class="nav-links">
-            <li><a href="#">
+            <li><a href="user?page=home">
                 <i class="uil uil-estate"></i>
                 <span class="link-name">Home</span>
             </a></li>

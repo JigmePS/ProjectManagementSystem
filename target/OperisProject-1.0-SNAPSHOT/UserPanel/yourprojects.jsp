@@ -63,7 +63,7 @@
             min-height: 45px;
         }
 
-        .list-group li a {
+        .list-group a {
             text-decoration: none;
             color: var(--text-color);
         }
@@ -121,7 +121,7 @@
         <div class="topnav">
             <span>YOUR PROJECTS</span>
             <div class="topnav-right">
-                <a class="addbtn" href="#"><i class="uil uil-plus-circle"></i></a>
+                <a class="addbtn" href="user?page=addp"><i class="uil uil-plus-circle"></i></a>
             </div>
         </div>
 
@@ -129,7 +129,7 @@
             <div class="list-container">
                 <ul class="list-group" id="paginated-list" data-current-page="1" aria-live="polite">
                     <c:forEach var="project" items="${yourplist}">
-                        <a><li>${project.pname}</li></a>
+                        <a href="user?page=task&pid=${project.pid}&pname=${project.pname}&pstatus=${project.pstatus}"><li>${project.pname}</li></a>
                     </c:forEach>
                 </ul>
             </div>

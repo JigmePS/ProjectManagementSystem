@@ -40,7 +40,15 @@
             display: block;
         }
 
-        .pfield {
+        .dfield {
+            min-width: 150px;
+            height: 40px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .field {
             min-width: 300px;
             height: 40px;
             border-radius: 5px;
@@ -48,11 +56,11 @@
             padding-left: 10px;
         }
 
-        .pfield:focus {
+        .field:focus {
             outline: none;
         }
 
-        .paddbtn {
+        .taddbtn {
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -63,7 +71,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Add Project</title>
+    <title>Add Task</title>
 </head>
 
 <body>
@@ -74,17 +82,29 @@
     <div>
 
         <div class="topnav">
-            <span>Create New Project</span>
+            <span>Add Task</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=addproject" method="post" class="addform">
-                <label>Project Name:</label>
-                <input type="text" class="pfield" name="pname">
-                <input type="submit" value="Add" class="paddbtn">
+            <form action="user?page=addtask" method="post" class="addform">
+                <label>Date:</label>
+                <input type="date" class="dfield" name="date">
+
+                <label>Task Name:</label>
+                <input type="text" class="field" name="tname">
+
+                <label>Member:</label>
+                <input type="text" class="field" name="tmember">
+
+                <label>Deliverable (Optional):</label>
+                <input type="file" class="field" name="deliverable">
+
+                <label>Image (Optional):</label>
+                <input type="file" class="field" name="image">
+
+                <input type="submit" value="Add" class="taddbtn">
             </form>
         </div>
-
 
     </div>
 

@@ -16,7 +16,7 @@ import jakarta.servlet.annotation.*;
 public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
-                           HttpServletResponse response) throws IOException, ServletException {
+                         HttpServletResponse response) throws IOException, ServletException {
 
         doPost(request, response);
 
@@ -29,7 +29,7 @@ public class UserServlet extends HttpServlet {
 
         String action = request.getParameter("page");
 
-        if (action.equalsIgnoreCase("login") ){
+        if (action.equalsIgnoreCase("login")) {
 
             String email = request.getParameter("email");
             String password = (request.getParameter("password"));
@@ -69,29 +69,23 @@ public class UserServlet extends HttpServlet {
         }
 
         //To redirect in Forgot Password Page
-        if (action.equalsIgnoreCase("forgot"))
-
-        {
+        if (action.equalsIgnoreCase("forgot")) {
             RequestDispatcher rd = request.getRequestDispatcher("UserPanel/forgot.jsp");
             rd.forward(request, response);
         }
 
         //To redirect in Register Page
-        if (action.equalsIgnoreCase("newUsers"))
-
-        {
+        if (action.equalsIgnoreCase("newUsers")) {
             String email = request.getParameter("email");
 
             response.setContentType("text/html");
-            request.setAttribute("email",email);
+            request.setAttribute("email", email);
             RequestDispatcher rd = request.getRequestDispatcher("UserPanel/signup.jsp");
             rd.forward(request, response);
         }
 
         //To register a new account
-        if (action.equalsIgnoreCase("signup"))
-
-        {
+        if (action.equalsIgnoreCase("signup")) {
             Um user = new Um();
 
             user.setEmail(request.getParameter("email"));
@@ -111,73 +105,18 @@ public class UserServlet extends HttpServlet {
         }
 
         // send to login page
-        if (action.equalsIgnoreCase("login"))
-
-        {
+        if (action.equalsIgnoreCase("login")) {
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
-        }
-
-        if (action.equalsIgnoreCase("logout"))
-
-        {
-            HttpSession s = request.getSession();
-            s.invalidate();
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
-        }
-
-        if (action.equalsIgnoreCase("listuser") ){
-
-            Um user = new Um();
-            List<Um> userList = new UserService().getUserList();
-
-            request.setAttribute("user", user);
-            request.setAttribute("userlist", userList);
-            RequestDispatcher rd = request.getRequestDispatcher("Pages/listuser.jsp");
             rd.forward(request, response);
         }
 
         //To redirect to User Home Page
-        if (action.equalsIgnoreCase("home"))
-
-        {
+        if (action.equalsIgnoreCase("home")) {
             RequestDispatcher rd = request.getRequestDispatcher("UserPanel/udash.jsp");
             rd.forward(request, response);
         }
 
-        //To redirect to User Profile Password Page
-        if (action.equalsIgnoreCase("profile"))
-
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/profile.jsp");
-            rd.forward(request, response);
-        }
-
-        if (action.equalsIgnoreCase("addProject"))
-
-        {
-            HttpSession session = request.getSession();
-            int uid = (int) session.getAttribute("uid");
-
-            Um project = new Um();
-
-            project.setPname(request.getParameter("pname"));
-            project.setId(uid);
-
-            new UserService().insertProject(project);
-
-            System.out.printf("Data Inserted");
-
-            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/udash.jsp");
-            try {
-                rd.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        if (action.equalsIgnoreCase("listyourprojects") ){
+        if (action.equalsIgnoreCase("listyourprojects")) {
 
             out.print("listYprojects");
             HttpSession session = request.getSession();
@@ -193,7 +132,288 @@ public class UserServlet extends HttpServlet {
             rd.forward(request, response);
         }
 
-        if (action.equalsIgnoreCase("searchbox") ){
+        //To redirect to Add Project Page
+        if (action.equalsIgnoreCase("addp")) {
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/addproject.jsp");
+            rd.forward(request, response);
+        }
+
+        //To add project
+        if (action.equalsIgnoreCase("addproject")) {
+            HttpSession session = request.getSession();
+            int uid = (int) session.getAttribute("uid");
+
+            Um project = new Um();
+
+            project.setPname(request.getParameter("pname"));
+            project.setId(uid);
+
+            new UserService().insertProject(project);
+
+            System.out.print("Data Inserted");
+
+            Um user = new Um();
+
+            List<Um> projectList = new UserService().getYourProjectList(uid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("yourplist", projectList);
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/yourprojects.jsp");
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //To redirect to Task Page
+        if (action.equalsIgnoreCase("task")) {
+            int pid = Integer.parseInt(request.getParameter("pid"));
+            String pname = request.getParameter("pname");
+            String pstatus = request.getParameter("pstatus");
+
+            out.print("listtasks");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("pid", pid);
+            session.setAttribute("pname", pname);
+            session.setAttribute("pstatus", pstatus);
+            session.setAttribute("option", "Tasks");
+
+            Um user = new Um();
+
+            List<Um> taskList = new UserService().getTaskList(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tlist", taskList);
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/task.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Task Page
+        if (action.equalsIgnoreCase("tasks")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            session.setAttribute("option", "Tasks");
+
+            Um user = new Um();
+
+            List<Um> taskList = new UserService().getTaskList(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tlist", taskList);
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/task.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Add Task Page
+        if (action.equalsIgnoreCase("addt")) {
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/addtask.jsp");
+            rd.forward(request, response);
+        }
+
+        //To add task
+        if (action.equalsIgnoreCase("addtask")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+
+            Um task = new Um();
+
+            task.setTdate(request.getParameter("date"));
+            task.setTname(request.getParameter("tname"));
+            task.setTaskMember(request.getParameter("tmember"));
+            task.setDeliverable(request.getParameter("deliverable"));
+            task.setImge(request.getParameter("image"));
+
+            task.setPid(pid);
+
+            new UserService().insertTask(task);
+
+            System.out.print("Data Inserted");
+
+            Um user = new Um();
+
+            List<Um> taskList = new UserService().getTaskList(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tlist", taskList);
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/task.jsp");
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //To redirect to Edit Task Page
+        if (action.equalsIgnoreCase("editt")) {
+            int tid = Integer.parseInt(request.getParameter("tid"));
+
+            out.print("listtasks");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("tid", tid);
+
+            Um user = new Um();
+
+            List<Um> taskList = new UserService().getTask(tid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tlist", taskList);
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/edittask.jsp");
+            rd.forward(request, response);
+        }
+
+        //To edit task
+        if (action.equalsIgnoreCase("edittask")) {
+            HttpSession session = request.getSession();
+            int tid = (int) session.getAttribute("tid");
+
+            Um task = new Um();
+
+            task.setTdate(request.getParameter("date"));
+            task.setTname(request.getParameter("tname"));
+            task.setTaskMember(request.getParameter("tmember"));
+            task.setDeliverable(request.getParameter("deliverable"));
+            task.setImge(request.getParameter("image"));
+
+            task.setTid(tid);
+
+            new UserService().editTask(task);
+
+            System.out.print("Data Edited");
+
+            Um user = new Um();
+
+            List<Um> taskList = new UserService().getTaskList(tid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tlist", taskList);
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/task.jsp");
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //To redirect to Member Page
+        if (action.equalsIgnoreCase("member")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            session.setAttribute("option", "Members");
+
+            Um user = new Um();
+
+            List<Um> memberList = new UserService().getMembers(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("mlist", memberList);
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/member.jsp");
+            rd.forward(request, response);
+        }
+
+        //To search Member
+        if (action.equalsIgnoreCase("searchmember")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            session.setAttribute("option", "Tasks");
+
+            String sresult = request.getParameter("sresult");
+
+            Um user = new Um();
+
+            List<Um> memberList = new UserService().getSearchMembers(pid, sresult);
+
+            request.setAttribute("user", user);
+            request.setAttribute("mlist", memberList);
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/member.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Setting Page
+        if (action.equalsIgnoreCase("setting")) {
+            HttpSession session = request.getSession();
+            session.setAttribute("option", "Settings");
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/settings.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Edit Project Page
+        if (action.equalsIgnoreCase("editp")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+
+            Um user = new Um();
+
+            List<Um> projectList = new UserService().getProjectDetail(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("pdetail", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/editproject.jsp");
+            rd.forward(request, response);
+        }
+
+        //To edit project
+        if (action.equalsIgnoreCase("editproject")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            String pname = request.getParameter("pname");
+            String status = request.getParameter("status");
+
+            Um pdetail = new Um();
+
+            pdetail.setPname(pname);
+            pdetail.setPstatus(status);
+
+            pdetail.setPid(pid);
+
+            session.setAttribute("pname",pname);
+            session.setAttribute("pstatus",status);
+
+            new UserService().editProject(pdetail);
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/settings.jsp");
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //To delete project
+        if (action.equalsIgnoreCase("deleteproject")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            int uid = (int) session.getAttribute("uid");
+
+            Um project = new Um();
+
+            new UserService().deleteProject(pid);
+
+            System.out.print("Data Deleted");
+
+            Um user = new Um();
+
+            List<Um> projectList = new UserService().getYourProjectList(uid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("yourplist", projectList);
+
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/yourprojects.jsp");
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if (action.equalsIgnoreCase("searchbox")) {
 
             out.print("listNprojects");
             HttpSession session = request.getSession();
@@ -209,28 +429,55 @@ public class UserServlet extends HttpServlet {
             rd.forward(request, response);
         }
 
-        //To redirect to Task Page
-        if (action.equalsIgnoreCase("task"))
+        if (action.equalsIgnoreCase("searchproject")) {
 
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/Task.jsp");
+            out.print("listSprojects");
+            HttpSession session = request.getSession();
+            int uid = (int) session.getAttribute("uid");
+
+            String sresult = request.getParameter("sresult");
+
+            Um user = new Um();
+
+            List<Um> projectList = new UserService().getSearchProjectList(uid, sresult);
+
+            request.setAttribute("user", user);
+            request.setAttribute("plist", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/search.jsp");
             rd.forward(request, response);
         }
 
-        //To redirect to Member Page
-        if (action.equalsIgnoreCase("member"))
-
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/member.jsp");
+        //To redirect to User Profile Page
+        if (action.equalsIgnoreCase("profile")) {
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/profile.jsp");
             rd.forward(request, response);
         }
 
-        //To redirect to Setting Page
-        if (action.equalsIgnoreCase("setting"))
-
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/setting.jsp");
+        //To redirect to Change Full Name Page
+        if (action.equalsIgnoreCase("editfn")) {
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/editfname.jsp");
             rd.forward(request, response);
         }
+
+        //To redirect to Change Password Page
+        if (action.equalsIgnoreCase("editup")) {
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/changepassword.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Change Password Page
+        if (action.equalsIgnoreCase("editem")) {
+            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/changeemail.jsp");
+            rd.forward(request, response);
+        }
+
+        //To logout
+        if (action.equalsIgnoreCase("logout")) {
+            HttpSession s = request.getSession();
+            s.invalidate();
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
+        }
+
     }
 }

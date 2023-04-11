@@ -52,7 +52,15 @@
             outline: none;
         }
 
-        .paddbtn {
+        .status {
+            min-width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .peditbtn {
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -63,7 +71,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Add Project</title>
+    <title>Edit Project</title>
 </head>
 
 <body>
@@ -74,14 +82,24 @@
     <div>
 
         <div class="topnav">
-            <span>Create New Project</span>
+            <span>Edit Project</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=addproject" method="post" class="addform">
+            <form action="user?page=editproject" method="post" class="addform">
+
                 <label>Project Name:</label>
-                <input type="text" class="pfield" name="pname">
-                <input type="submit" value="Add" class="paddbtn">
+                <input type="text" class="pfield" name="pname" value="${pname}">
+
+                <label>Visibility:</label>
+                <select class="status" name="status" placeholder="Select">
+                    <option value="" disabled selected>${pstatus}</option>
+                    <option value="public">public</option>
+                    <option value="private">private</option>
+                </select>
+
+                <input type="submit" value="Edit" class="peditbtn">
+
             </form>
         </div>
 

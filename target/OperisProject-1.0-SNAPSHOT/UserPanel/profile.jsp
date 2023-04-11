@@ -9,7 +9,7 @@
 
     <!----======== CSS ======== -->
     <style>
-        .phead span{
+        .phead span {
             color: var(--text-color);
             font-size: 25px;
             overflow: hidden;
@@ -42,13 +42,13 @@
             color: var(--border-color);
         }
 
-        .pcase span{
+        .pcase span {
             display: block;
             overflow: hidden;
             padding: 20px;
         }
 
-        .ccase span{
+        .ccase span {
             display: block;
             overflow: hidden;
             padding: 20px;
@@ -62,7 +62,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>User Dashboard Panel</title>
+    <title>Profile Page</title>
 </head>
 
 <body>
@@ -76,9 +76,9 @@
             <span><b>Profile</b></span>
         </div>
         <div class="pcase">
-            <span>Full Name  <a href="#"><i class="uil uil-edit"></i></a></span>
+            <span>Full Name  <a href="user?page=editfn"><i class="uil uil-edit"></i></a></span>
             <span class="equals">${fname}</span>
-            <span>Password  <a href="#"><i class="uil uil-edit"></i></a></span>
+            <span>Password  <a href="user?page=editup"><i class="uil uil-edit"></i></a></span>
             <span class="equals">*****</span>
         </div>
 
@@ -86,7 +86,7 @@
             <span><b>Contact</b></span>
         </div>
         <div class="ccase">
-            <span>Email address  <a href="#"><i class="uil uil-edit"></i></a></span>
+            <span>Email address  <a href="user?page=editem"><i class="uil uil-edit"></i></a></span>
             <span class="equals">${email}</span>
         </div>
 

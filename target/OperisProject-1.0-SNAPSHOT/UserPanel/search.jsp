@@ -139,7 +139,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>User Dashboard Panel</title>
+    <title>Search Section</title>
 </head>
 
 <body>
@@ -150,9 +150,9 @@
     <div class="plist">
 
         <div class="topnav">
-            <form>
+            <form action="user?page=searchproject" method="post">
                 <div class="sbar">
-                    <input type="text" class="sfield" placeholder="Search"/>
+                    <input type="text" name="sresult" class="sfield" placeholder="Search"/>
                     <button type="submit" class="sicon">
                         <i class="uil uil-search"></i>
                     </button>
