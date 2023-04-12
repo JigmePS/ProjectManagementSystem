@@ -538,7 +538,7 @@
         <ul class="logout-mode">
             <li><a href="user?page=profile">
                 <i class="uil uil-user-circle"></i>
-                <span class="link-name">Profile</span>
+                <span class="link-name">${fname}</span>
             </a></li>
             <li class="mode">
                 <a href="#">

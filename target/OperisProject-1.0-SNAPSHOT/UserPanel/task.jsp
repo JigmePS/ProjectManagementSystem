@@ -197,7 +197,9 @@
     <div class="plist">
 
         <div class="topnav">
-            <span>${pname}</span>
+            <c:forEach var="project" items="${pdetail}">
+                <span>${project.pname}</span>
+            </c:forEach>
             <div class="topnav-right">
                 <div class="dropdown">
                     <button class="dropbtn">${option}
@@ -205,7 +207,6 @@
                     </button>
                     <div class="dropdown-content">
                         <a href="user?page=tasks"><i class="uil uil-chart"></i> Tasks</a>
-                        <a href="user?page=member"><i class="uil uil-user"></i> Members</a>
                         <a href="user?page=setting"><i class="uil uil-setting"></i> Settings</a>
                     </div>
                 </div>

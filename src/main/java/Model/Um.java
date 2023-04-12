@@ -10,6 +10,16 @@ public class Um {
 
     private String password;
 
+    private String newPassword;
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
     private int pid;
 
     private Boolean admin;

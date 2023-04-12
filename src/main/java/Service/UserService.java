@@ -26,34 +26,6 @@ public class UserService {
         }
     }
 
-
-    // Delete User
-    public void deleteUser(int id) {
-        String query = "delete from user where uid = ?";
-        PreparedStatement ps = new DBConnection().getStatement(query);
-
-        try {
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void editUser(int id, Um user) throws SQLException {
-
-        String query = "update user set email=?,fname=?,password=?," +
-                "where uid=?";
-        PreparedStatement pstm = new DBConnection().getStatement(query);
-        pstm.setString(1, user.getEmail());
-        pstm.setString(2, user.getFullName());
-        pstm.setString(3, user.getPassword());
-//        pstm.setString(4, student.getRole());
-        pstm.setInt(5, id);
-
-        pstm.execute();
-    }
-
     public Um getUser(String email, String password) {
 
         Um user = null;
@@ -75,31 +47,6 @@ public class UserService {
             throw new RuntimeException(e);
         }
         return user;
-    }
-
-
-    public List<Um> getUserList() {
-        List<Um> userList = new ArrayList<>();
-        String query = "select * from user";
-        System.out.println(query);
-        PreparedStatement pstm = new DBConnection().getStatement(query);
-        try {
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                Um user = new Um();
-
-                user.setId(rs.getInt("uid"));
-                user.setEmail(rs.getString("email"));
-                user.setFullName(rs.getString("fname"));
-                user.setPassword(rs.getString("password"));
-
-                userList.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return userList;
     }
 
     public List<Um> getYourProjectList(int uid) {
@@ -252,90 +199,23 @@ public class UserService {
         }
     }
 
-//    public Um MembersProcess(int pid){
-//
-//        Um user = null;
-//        String query = "select uid from project where id!=?";
-//        PreparedStatement ps = new DBConnection().getStatement(query);
-//        try {
-//            ps.setInt(1, pid);
-//
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                user = new Um();
-//                user.setId(rs.getInt("uid"));
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return user;
-//    }
+    public void deleteTask(int id){
+        String query = "delete from task where tid = ?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
 
-    public List<Um> getMembers(int pid) {
-        System.out.println("getMemberList");
-        List<Um> memberList = new ArrayList<>();
-        String query = "select * from user where pid!=?";
-        System.out.println(query);
-        PreparedStatement pstm = new DBConnection().getStatement(query);
-        try {
-            pstm.setInt(1, pid);
-
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                Um user = new Um();
-
-                user.setId(rs.getInt("uid"));
-                user.setEmail(rs.getString("email"));
-                user.setFullName(rs.getString("fname"));
-                user.setPassword(rs.getString("password"));
-                user.setPid(rs.getInt("pid"));
-                user.setAdmin(rs.getBoolean("admin"));
-
-                memberList.add(user);
-            }
-
-        } catch (SQLException e) {
+        try{
+            ps.setInt(1,id);
+            ps.execute();
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return memberList;
-    }
-
-    public List<Um> getSearchMembers(int pid, String sresult) {
-        System.out.println("getProjectList");
-        List<Um> memberList = new ArrayList<>();
-        String query = "select * from user where fname LIKE ? and pid!=?";
-        System.out.println(query);
-        PreparedStatement pstm = new DBConnection().getStatement(query);
-        try {
-            pstm.setString(1, "%" + sresult + "%");
-            pstm.setInt(2, pid);
-
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                Um user = new Um();
-
-                user.setId(rs.getInt("uid"));
-                user.setEmail(rs.getString("email"));
-                user.setFullName(rs.getString("fname"));
-                user.setPassword(rs.getString("password"));
-                user.setPid(rs.getInt("pid"));
-                user.setAdmin(rs.getBoolean("admin"));
-
-                memberList.add(user);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return memberList;
     }
 
     public List<Um> getProjectDetail(int pid) {
         System.out.println("getProjectDetail");
         List<Um> projectList = new ArrayList<>();
-        String query = "select * from project where pid=?";
+        String query = "select * from project where id=?";
         System.out.println(query);
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
@@ -358,11 +238,12 @@ public class UserService {
         }
 
         return projectList;
+
     }
 
     public void editProject(Um pdetail) {
         String query = "update project set name=?,status=?" +
-                "where pid=?"; // same as database
+                "where id=?"; // same as database
 
         PreparedStatement preparedStatements = new DBConnection().getStatement(query);  // execute parametrized query
 
@@ -379,14 +260,15 @@ public class UserService {
         }
     }
 
-    public void deleteProject(int pid) {
-        String query = "delete from project where pid = ?";
+    public void deleteProject(int pid){
+        String query = "delete from project where id = ?";
         PreparedStatement ps = new DBConnection().getStatement(query);
 
-        try {
-            ps.setInt(1, pid);
+        try{
+            ps.setInt(1,pid);
             ps.execute();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -394,7 +276,7 @@ public class UserService {
     public List<Um> getNotProjectList(int uid) {
         System.out.println("getProjectList");
         List<Um> projectList = new ArrayList<>();
-        String query = "select * from project where uid!=?";
+        String query = "select * from project where uid!=? and status='public'";
         System.out.println(query);
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
@@ -446,6 +328,53 @@ public class UserService {
         }
 
         return projectList;
+    }
+
+    public List<Um> getSearchProjectTaskList(int pid) {
+        System.out.println("getTaskList");
+        List<Um> staskList = new ArrayList<>();
+        String query = "select * from task where pid=? ORDER BY date ASC";
+        System.out.println(query);
+        PreparedStatement pstm = new DBConnection().getStatement(query);
+        try {
+            pstm.setInt(1, pid);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                Um user = new Um();
+
+                user.setTid(rs.getInt("tid"));
+                user.setTdate(rs.getString("date"));
+                user.setTname(rs.getString("tname"));
+                user.setTaskMember(rs.getString("member"));
+                user.setDeliverable(rs.getString("deliverable"));
+                user.setImge(rs.getString("image"));
+                user.setPid(rs.getInt("pid"));
+
+                staskList.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return staskList;
+    }
+
+    public Um changePassword(Um user, int uid) {
+        String query = "UPDATE user SET password = ? WHERE uid = ? and password=?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try {
+            ps.setString(1, user.getNewPassword());
+            ps.setInt(2, uid);
+            ps.setString(3, user.getPassword());
+
+            ps.executeUpdate();
+            System.out.println(ps);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
     }
 
 }

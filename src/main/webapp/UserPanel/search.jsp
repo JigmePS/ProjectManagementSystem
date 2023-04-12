@@ -74,29 +74,14 @@
             padding-bottom: 10px;
         }
 
-        .task-table .sname {
-            width: 90%;
-        }
-
-        .task-table .joinreq {
-            width: 10%;
-            text-align: right;
-            padding-right: 20px;
-        }
-
-        .task-table .joinreq a {
-            background-color: var(--black-light-color);
-            color: var(--page-number-color);
+        .sname a {
+            margin-left: 10px;
             text-decoration: none;
-            border: transparent;
-            border-radius: 5px;
-            padding: 10px 20px;
+            color: var(--text-color);
         }
 
-        .task-table .joinreq a:hover {
-            border: 1px solid var(--text-color);
-            border-radius: 5px;
-            background-color: var(--border-color);
+        .sname:hover {
+            background-color: var(--box3-color);
         }
 
         .hidden {
@@ -166,8 +151,7 @@
                     <tbody id="paginated-list" data-current-page="1" aria-live="polite">
                     <c:forEach var="project" items="${plist}">
                         <tr>
-                            <td class="sname">${project.pname}</td>
-                            <td class="joinreq"><a href="">Join</a></td>
+                            <td class="sname"><a href="user?page=sptask&pid=${project.pid}&pname=${project.pname}">${project.pname}</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

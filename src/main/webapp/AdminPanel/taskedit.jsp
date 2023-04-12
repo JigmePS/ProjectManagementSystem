@@ -40,7 +40,15 @@
             display: block;
         }
 
-        .pfield {
+        .dfield {
+            min-width: 150px;
+            height: 40px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .field {
             min-width: 300px;
             height: 40px;
             border-radius: 5px;
@@ -48,46 +56,62 @@
             padding-left: 10px;
         }
 
-        .pfield:focus {
+        .field:focus {
             outline: none;
         }
 
-        .neditbtn {
-            margin-top: 30px;
+        .teditbtn {
             height: 40px;
             width: 80px;
             border-radius: 5px;
             outline: none;
             background-color: var(--title-icon-color);
         }
+
+        .teditbtn:hover {
+            background-color: var(--box3-color);
+        }
     </style>
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Change Password</title>
+    <title>Add Task</title>
 </head>
 
 <body>
-<%@ include file="../include/ubase.jsp" %>
+<%@ include file="../include/abase.jsp" %>
 
 <section class="dashboard">
 
     <div>
 
         <div class="topnav">
-            <span>Change Password</span>
+            <span>Edit Task</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=changepassword" method="post" class="addform">
-                <label>Old Password: (Enter password to verify yourself)</label>
-                <input type="text" class="pfield" name="tpassword">
+            <c:forEach var="task" items="${tdetail}">
+                <form action="admin?page=edittask&tid=${task.tid}" method="post" class="addform">
 
-                <label>New Password:</label>
-                <input type="text" class="pfield" name="npassword">
+                    <label>Date:</label>
+                    <input type="date" class="dfield" name="date" value="${task.tdate}">
 
-                <input type="submit" value="Edit" class="neditbtn">
-            </form>
+                    <label>Task Name:</label>
+                    <input type="text" class="field" name="tname" value="${task.tname}">
+
+                    <label>Member:</label>
+                    <input type="text" class="field" name="tmember" value="${task.taskMember}">
+
+                    <label>Deliverable (Optional):</label>
+                    <input type="file" class="field" name="deliverable" value="${task.deliverable}">
+
+                    <label>Image (Optional):</label>
+                    <input type="file" class="field" name="image" value="${task.imge}">
+
+                    <input type="submit" value="Edit" class="teditbtn">
+
+                </form>
+            </c:forEach>
         </div>
 
     </div>

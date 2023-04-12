@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -52,42 +53,59 @@
             outline: none;
         }
 
-        .neditbtn {
-            margin-top: 30px;
+        .status {
+            min-width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .peditbtn {
+            margin-top: 10px;
             height: 40px;
             width: 80px;
             border-radius: 5px;
             outline: none;
             background-color: var(--title-icon-color);
         }
+
+        .peditbtn:hover {
+            background-color: var(--box3-color);
+        }
     </style>
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Change Password</title>
+    <title>Edit User</title>
 </head>
 
 <body>
-<%@ include file="../include/ubase.jsp" %>
+<%@ include file="../include/abase.jsp" %>
 
 <section class="dashboard">
 
     <div>
 
         <div class="topnav">
-            <span>Change Password</span>
+            <span>Edit User</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=changepassword" method="post" class="addform">
-                <label>Old Password: (Enter password to verify yourself)</label>
-                <input type="text" class="pfield" name="tpassword">
+            <c:forEach var="user" items="${udetail}">
+                <form action="admin?page=edituser&uid=${user.id}" method="post" class="addform">
+                    <label>Full Name:</label>
+                    <input type="text" class="pfield" value="${user.fullName}" name="fname">
 
-                <label>New Password:</label>
-                <input type="text" class="pfield" name="npassword">
+                    <label>Email:</label>
+                    <input type="text" class="pfield" value="${user.email}" name="email">
 
-                <input type="submit" value="Edit" class="neditbtn">
-            </form>
+                    <label>Password:</label>
+                    <input type="text" class="pfield" value="${user.password}" name="password">
+
+                    <input type="submit" value="Edit" class="peditbtn">
+                </form>
+            </c:forEach>
         </div>
 
     </div>

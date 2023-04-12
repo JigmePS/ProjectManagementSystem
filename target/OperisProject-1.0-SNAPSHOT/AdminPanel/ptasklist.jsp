@@ -10,10 +10,9 @@
 
     <!----======== CSS ======== -->
     <style>
-        /* Add a black background color to the top navigation */
         .topnav {
             /* background-color: #333; */
-            border-bottom: 3px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             overflow: hidden;
         }
 
@@ -27,49 +26,68 @@
             font-size: 17px;
         }
 
-        /* Right-aligned section inside the top navigation */
-        .topnav-right {
-            float: right;
-            padding: 10px;
-        }
-
-        /* Dropdown button */
-        .addbtn {
-            vertical-align: middle;
-            font-size: 16px;
-            border: none;
-            outline: none;
-            color: var(--text-color);
-            padding: 14px 16px;
-            background-color: inherit;
-            min-width: 135.03px;
-            font-family: inherit;
-            /* Important for vertical align on mobile phones */
-            margin: 0;
-            /* Important for vertical align on mobile phones */
-        }
-
-        .list-group {
-            /* background-color: #333; */
-            border-bottom: 1px solid var(--border-color);
-            overflow: hidden;
+        .table-container {
             height: 79vh;
-        }
-
-        .list-group li {
             border-bottom: 1px solid var(--border-color);
             overflow: hidden;
-            padding: 10px;
-            min-height: 45px;
         }
 
-        .list-group a {
-            text-decoration: none;
+        .task-table {
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            width: 100%;
             color: var(--text-color);
         }
 
-        .list-group li:hover {
+        .task-table th {
+            border-bottom: 2px solid var(--border-color);
+            overflow: hidden;
+            text-align: left;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        .task-table td {
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        #action {
+            text-align: center;
+            width: 25%;
+        }
+
+        .act {
+            text-align: center;
+        }
+
+        .act a {
+            text-decoration: none;
+        }
+
+        .teditbtn {
             background-color: var(--box3-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .teditbtn:hover {
+            background-color: var(--border-color);
+        }
+
+        .tdelbtn {
+            background-color: red;
+            border-radius: 5px;
+            padding: 8px;
+            color: black;
+        }
+
+        .tdelbtn:hover {
+            background-color: darkred;
         }
 
         .hidden {
@@ -112,30 +130,51 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>User Dashboard Panel</title>
+    <title>Admin Dashboard Panel</title>
 </head>
 
 <body>
-<%@ include file="../include/ubase.jsp" %>
+<%@ include file="../include/abase.jsp" %>
 
 <section class="dashboard">
 
     <div class="plist">
 
         <div class="topnav">
-            <span>YOUR PROJECTS</span>
-            <div class="topnav-right">
-                <a class="addbtn" href="user?page=addp"><i class="uil uil-plus-circle"></i></a>
-            </div>
+            <c:forEach var="project" items="${pdetail}">
+                <span>${project.pname}'s Tasks</span>
+            </c:forEach>
         </div>
 
         <main>
-            <div class="list-container">
-                <ul class="list-group" id="paginated-list" data-current-page="1" aria-live="polite">
-                    <c:forEach var="project" items="${yourplist}">
-                        <li><a href="user?page=task&pid=${project.pid}&pname=${project.pname}&pstatus=${project.pstatus}">${project.pname}</a></li>
+            <div class="table-container">
+                <table class="task-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Task</th>
+                        <th>Member</th>
+                        <th>Deliverable</th>
+                        <th>Images(Optional)</th>
+                        <th id="action">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="paginated-list" data-current-page="1" aria-live="polite">
+                    <c:forEach var="task" items="${tlist}">
+                        <tr class="res">
+                            <td>${task.tdate}</td>
+                            <td>${task.tname}</td>
+                            <td>${task.taskMember}</td>
+                            <td>${task.deliverable}</td>
+                            <td>${task.imge}</td>
+                            <td class="act">
+                                <a href="admin?page=editt&tid=${task.tid}" class="teditbtn"><i class="uil uil-edit"></i>Edit</a>
+                                <a href="admin?page=deletetask&tid=${task.tid}" class="tdelbtn"><i class="uil uil-x"></i>Delete</a>
+                            </td>
+                        </tr>
                     </c:forEach>
-                </ul>
+                    </tbody>
+                </table>
             </div>
 
             <nav class="pagination-container">
@@ -153,7 +192,6 @@
             </nav>
         </main>
 
-
     </div>
 
 </section>
@@ -161,11 +199,11 @@
 <script>
     const paginationNumbers = document.getElementById("pagination-numbers");
     const paginatedList = document.getElementById("paginated-list");
-    const listItems = paginatedList.querySelectorAll("li");
+    const listItems = paginatedList.querySelectorAll("tr");
     const nextButton = document.getElementById("next-button");
     const prevButton = document.getElementById("prev-button");
 
-    const paginationLimit = 13
+    const paginationLimit = 11
     // <---yo number le page ma list item ko limit rakhne
     const pageCount = Math.ceil(listItems.length / paginationLimit);
     let currentPage = 1;

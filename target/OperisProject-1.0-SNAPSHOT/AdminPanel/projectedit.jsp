@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -52,8 +53,15 @@
             outline: none;
         }
 
-        .neditbtn {
-            margin-top: 30px;
+        .status {
+            min-width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .peditbtn {
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -64,30 +72,38 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Change Password</title>
+    <title>Edit Project</title>
 </head>
 
 <body>
-<%@ include file="../include/ubase.jsp" %>
+<%@ include file="../include/abase.jsp" %>
 
 <section class="dashboard">
 
     <div>
 
         <div class="topnav">
-            <span>Change Password</span>
+            <span>Edit Project</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=changepassword" method="post" class="addform">
-                <label>Old Password: (Enter password to verify yourself)</label>
-                <input type="text" class="pfield" name="tpassword">
+            <c:forEach var="project" items="${pdetail}">
+                <form action="admin?page=editproject&pid=${project.pid}" method="post" class="addform">
 
-                <label>New Password:</label>
-                <input type="text" class="pfield" name="npassword">
+                    <label>Project Name:</label>
+                    <input type="text" class="pfield" name="pname" value="${project.pname}">
 
-                <input type="submit" value="Edit" class="neditbtn">
-            </form>
+                    <label>Visibility:</label>
+                    <select class="status" name="status" placeholder="Select">
+                        <option value="" disabled selected>Select</option>
+                        <option value="public">public</option>
+                        <option value="private">private</option>
+                    </select>
+
+                    <input type="submit" value="Edit" class="peditbtn">
+
+                </form>
+            </c:forEach>
         </div>
 
     </div>

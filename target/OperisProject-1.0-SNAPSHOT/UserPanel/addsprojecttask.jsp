@@ -40,7 +40,15 @@
             display: block;
         }
 
-        .pfield {
+        .dfield {
+            min-width: 150px;
+            height: 40px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .field {
             min-width: 300px;
             height: 40px;
             border-radius: 5px;
@@ -48,12 +56,11 @@
             padding-left: 10px;
         }
 
-        .pfield:focus {
+        .field:focus {
             outline: none;
         }
 
-        .neditbtn {
-            margin-top: 30px;
+        .taddbtn {
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -64,7 +71,7 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Change Password</title>
+    <title>Add Task</title>
 </head>
 
 <body>
@@ -75,18 +82,27 @@
     <div>
 
         <div class="topnav">
-            <span>Change Password</span>
+            <span>Add Task</span>
         </div>
 
         <div class="form-container">
-            <form action="user?page=changepassword" method="post" class="addform">
-                <label>Old Password: (Enter password to verify yourself)</label>
-                <input type="text" class="pfield" name="tpassword">
+            <form action="user?page=addpstask" method="post" class="addform">
+                <label>Date:</label>
+                <input type="date" class="dfield" name="date">
 
-                <label>New Password:</label>
-                <input type="text" class="pfield" name="npassword">
+                <label>Task Name:</label>
+                <input type="text" class="field" name="tname">
 
-                <input type="submit" value="Edit" class="neditbtn">
+                <label>Member:</label>
+                <input type="text" class="field" name="tmember">
+
+                <label>Deliverable (Optional):</label>
+                <input type="file" class="field" name="deliverable">
+
+                <label>Image (Optional):</label>
+                <input type="file" class="field" name="image">
+
+                <input type="submit" value="Add" class="taddbtn">
             </form>
         </div>
 

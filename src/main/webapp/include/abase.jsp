@@ -523,11 +523,11 @@
         <i class="uil uil-estate"></i>
         <span class="link-name">Home</span>
       </a></li>
-      <li><a href="admin?page=user">
+      <li><a href="admin?page=userlist">
         <i class="uil uil-user"></i>
         <span class="link-name">Users</span>
       </a></li>
-      <li><a href="admin?page=project">
+      <li><a href="admin?page=projectlist">
         <i class="uil uil-chart"></i>
         <span class="link-name">Projects</span>
       </a></li>
@@ -538,7 +538,7 @@
     <ul class="logout-mode">
       <li><a href="#">
         <i class="uil uil-user-circle"></i>
-        <span class="link-name">Profile</span>
+        <span class="link-name">${fname}</span>
       </a></li>
       <li class="mode">
         <a href="#">

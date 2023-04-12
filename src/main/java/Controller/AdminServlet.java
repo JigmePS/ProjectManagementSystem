@@ -7,6 +7,7 @@ import java.util.*;
 import DBConnection.DBConnection;
 import Model.Um;
 import Service.AdminService;
+import Service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -29,17 +30,6 @@ public class AdminServlet extends HttpServlet {
 
         String action = request.getParameter("page");
 
-        if (action.equalsIgnoreCase("listuser")) {
-
-            Um user = new Um();
-            List<Um> userList = new AdminService().getUserList();
-
-            request.setAttribute("user", user);
-            request.setAttribute("userlist", userList);
-            RequestDispatcher rd = request.getRequestDispatcher("Pages/listuser.jsp");
-            rd.forward(request, response);
-        }
-
         //To redirect to User Home Page
         if (action.equalsIgnoreCase("home")) {
             RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/adash.jsp");
@@ -47,55 +37,265 @@ public class AdminServlet extends HttpServlet {
         }
 
         //To redirect to Users Page
-        if (action.equalsIgnoreCase("user")) {
+        if (action.equalsIgnoreCase("userlist")) {
+
+            out.print("ListUsers");
+
+            Um user = new Um();
+
+            List<Um> userList = new AdminService().getUList();
+
+            request.setAttribute("user", user);
+            request.setAttribute("ulist", userList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/suserlist.jsp");
+            rd.forward(request, response);
+        }
+
+        if (action.equalsIgnoreCase("searchuser")) {
+
+            out.print("SearchUsers");
+            ;
+
+            String sresult = request.getParameter("sresult");
+
+            Um user = new Um();
+
+            List<Um> userList = new AdminService().getSearchUser(sresult);
+
+            request.setAttribute("user", user);
+            request.setAttribute("ulist", userList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/suserlist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Edit User Page
+        if (action.equalsIgnoreCase("editu")) {
+            int uid = Integer.parseInt(request.getParameter("uid"));
+
+            Um user = new Um();
+
+            List<Um> userList = new AdminService().getUserDetail(uid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("udetail", userList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/useredit.jsp");
+            rd.forward(request, response);
+        }
+
+        //To edit user
+        if (action.equalsIgnoreCase("edituser")) {
+            int uid = Integer.parseInt(request.getParameter("uid"));
+            String fname = request.getParameter("fname");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            Um user = new Um();
+
+            user.setFullName(fname);
+            user.setEmail(email);
+            user.setPassword(password);
+
+            user.setId(uid);
+
+            new AdminService().editUser(user);
+
+            List<Um> userList = new AdminService().getUList();
+
+            request.setAttribute("ulist", userList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/suserlist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To delete user
+        if (action.equalsIgnoreCase("deleteuser"))
+        {
+            int id = Integer.parseInt(request.getParameter("id"));
+            AdminService adminService = new AdminService();
+            adminService.deleteUser(id);
+            List<Um> userList = new AdminService().getUList();
+
+            request.setAttribute("ulist", userList);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/suserlist.jsp");
             rd.forward(request, response);
         }
 
         //To redirect to Projects Page
-        if (action.equalsIgnoreCase("project")) {
+        if (action.equalsIgnoreCase("projectlist")) {
+
+            out.print("ListProjects");
+
+            Um user = new Um();
+
+            List<Um> projectList = new AdminService().getPList();
+
+            request.setAttribute("user", user);
+            request.setAttribute("plist", projectList);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/sprojectlist.jsp");
             rd.forward(request, response);
         }
 
-//        if (action.equalsIgnoreCase("searchbox")) {
-//
-//            out.print("listNprojects");
-//            HttpSession session = request.getSession();
-//            int uid = (int) session.getAttribute("uid");
-//
-//            Um user = new Um();
-//
-//            List<Um> projectList = new UserService().getNotProjectList(uid);
-//
-//            request.setAttribute("user", user);
-//            request.setAttribute("plist", projectList);
-//            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/search.jsp");
-//            rd.forward(request, response);
-//        }
-//
-//        if (action.equalsIgnoreCase("searchproject")) {
-//
-//            out.print("listSprojects");
-//            HttpSession session = request.getSession();
-//            int uid = (int) session.getAttribute("uid");
-//
-//            String sresult = request.getParameter("sresult");
-//
-//            Um user = new Um();
-//
-//            List<Um> projectList = new UserService().getSearchProjectList(uid, sresult);
-//
-//            request.setAttribute("user", user);
-//            request.setAttribute("plist", projectList);
-//            RequestDispatcher rd = request.getRequestDispatcher("UserPanel/search.jsp");
-//            rd.forward(request, response);
-//        }
+        //Search project
+        if (action.equalsIgnoreCase("searchproject")) {
+
+            out.print("SearchUsers");
+            ;
+
+            String sresult = request.getParameter("sresult");
+
+            Um user = new Um();
+
+            List<Um> projectList = new AdminService().getSearchProject(sresult);
+
+            request.setAttribute("user", user);
+            request.setAttribute("plist", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/sprojectlist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Edit Project Page
+        if (action.equalsIgnoreCase("editp")) {
+            int pid = Integer.parseInt(request.getParameter("pid"));
+
+            Um user = new Um();
+
+            List<Um> projectList = new AdminService().getProjectDetail(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("pdetail", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/projectedit.jsp");
+            rd.forward(request, response);
+        }
+
+        //To edit project
+        if (action.equalsIgnoreCase("editproject")) {
+            int pid = Integer.parseInt(request.getParameter("pid"));
+            String pname = request.getParameter("pname");
+            String status = request.getParameter("status");
+
+            Um project = new Um();
+
+            project.setPname(pname);
+            project.setPstatus(status);
+
+            project.setPid(pid);
+
+            new AdminService().editProject(project);
+
+            List<Um> projectList = new AdminService().getPList();
+
+            request.setAttribute("plist", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/sprojectlist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To delete project
+        if (action.equalsIgnoreCase("deleteproject"))
+        {
+            int id = Integer.parseInt(request.getParameter("id"));
+            AdminService adminService = new AdminService();
+            adminService.deleteProject(id);
+            List<Um> projectList = new AdminService().getPList();
+
+            request.setAttribute("plist", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/sprojectlist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Tasks Page
+        if (action.equalsIgnoreCase("tasklist")) {
+
+            out.print("ListTasks");
+            int pid = Integer.parseInt(request.getParameter("pid"));
+            String pname = request.getParameter("pname");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("pid", pid);
+            session.setAttribute("pname", pname);
+
+            Um user = new Um();
+
+            List<Um> taskList = new AdminService().getTList(pid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tlist", taskList);
+
+            List<Um> projectList = new AdminService().getProjectDetail(pid);
+
+            request.setAttribute("pdetail", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/ptasklist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To redirect to Edit Task Page
+        if (action.equalsIgnoreCase("editt")) {
+            int tid = Integer.parseInt(request.getParameter("tid"));
+
+            Um user = new Um();
+
+            List<Um> taskList = new AdminService().getTaskDetail(tid);
+
+            request.setAttribute("user", user);
+            request.setAttribute("tdetail", taskList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/taskedit.jsp");
+            rd.forward(request, response);
+        }
+
+        //To edit task
+        if (action.equalsIgnoreCase("edittask")) {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            int tid = Integer.parseInt(request.getParameter("tid"));
+
+            String tdate = request.getParameter("date");
+            String tname = request.getParameter("tname");
+            String tmember = request.getParameter("tmember");
+            String deliverable = request.getParameter("deliverable");
+            String image = request.getParameter("image");
+
+            Um task = new Um();
+
+            task.setTdate(tdate);
+            task.setTname(tname);
+            task.setTaskMember(tmember);
+            task.setDeliverable(deliverable);
+            task.setImge(image);
+
+            task.setTid(tid);
+
+            new AdminService().editTask(task);
+
+            List<Um> taskList = new AdminService().getTList(pid);
+
+            request.setAttribute("tlist", taskList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/ptasklist.jsp");
+            rd.forward(request, response);
+        }
+
+        //To delete task
+        if (action.equalsIgnoreCase("deletetask"))
+        {
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
+            int tid = Integer.parseInt(request.getParameter("tid"));
+
+            AdminService adminService = new AdminService();
+            adminService.deleteTask(tid);
+
+            List<Um> taskList = new AdminService().getTList(pid);
+
+            request.setAttribute("tlist", taskList);
+
+            List<Um> projectList = new AdminService().getProjectDetail(pid);
+
+            request.setAttribute("pdetail", projectList);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/ptasklist.jsp");
+            rd.forward(request, response);
+        }
 
         //To logout
         if (action.equalsIgnoreCase("logout")) {
-            HttpSession s = request.getSession();
-            s.invalidate();
+            HttpSession session = request.getSession();
+            session.invalidate();
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);
         }

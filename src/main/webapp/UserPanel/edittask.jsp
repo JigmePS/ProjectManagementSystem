@@ -27,6 +27,24 @@
             font-size: 17px;
         }
 
+        .topnav-right {
+            float: right;
+            margin-top: 10px;
+        }
+
+        .tdelbtn {
+            vertical-align: middle;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: red;
+            color: black;
+        }
+
+        .tdelbtn:hover {
+            background-color: darkred;
+        }
+
         .addform {
             color: var(--text-color);
             padding: 20px;
@@ -68,6 +86,10 @@
             outline: none;
             background-color: var(--title-icon-color);
         }
+
+        .teditbtn:hover {
+            background-color: var(--box3-color);
+        }
     </style>
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -84,6 +106,11 @@
 
         <div class="topnav">
             <span>Edit Task</span>
+            <div class="topnav-right">
+                <c:forEach var="task" items="${tlist}">
+                    <a class="tdelbtn" href="user?page=deletetask&tid=${task.tid}"><i class="uil uil-x"></i>Delete Task</a>
+                </c:forEach>
+            </div>
         </div>
 
         <div class="form-container">
@@ -107,6 +134,7 @@
 
                 <input type="submit" value="Edit" class="teditbtn">
             </form>
+
         </div>
 
     </div>

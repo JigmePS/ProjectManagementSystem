@@ -79,7 +79,7 @@
         </div>
 
         <div class="form-container">
-            <form class="addform">
+            <form action="user?page=changepassword" method="post" class="addform">
                 <label>Old Password: (Enter password to verify yourself)</label>
                 <input type="text" class="pfield" name="tpassword">
 

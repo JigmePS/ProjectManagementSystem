@@ -68,6 +68,10 @@
             color: var(--text-color);
         }
 
+        .list-group li:hover {
+            background-color: var(--box3-color);
+        }
+
         .hidden {
             display: none;
         }
@@ -129,7 +133,7 @@
             <div class="list-container">
                 <ul class="list-group" id="paginated-list" data-current-page="1" aria-live="polite">
                     <c:forEach var="project" items="${yourplist}">
-                        <a href="user?page=task&pid=${project.pid}&pname=${project.pname}&pstatus=${project.pstatus}"><li>${project.pname}</li></a>
+                        <li><a href="user?page=task&pid=${project.pid}&pname=${project.pname}&pstatus=${project.pstatus}">${project.pname}</a></li>
                     </c:forEach>
                 </ul>
             </div>

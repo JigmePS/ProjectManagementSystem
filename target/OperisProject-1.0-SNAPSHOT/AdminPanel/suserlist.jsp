@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -80,6 +81,42 @@
             padding-bottom: 10px;
         }
 
+        #action {
+            text-align: center;
+            width: 25%;
+        }
+
+        .act {
+            text-align: center;
+        }
+
+        .act a{
+            text-decoration: none;
+        }
+
+        .ueditbtn {
+            background-color: var(--box3-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .ueditbtn:hover {
+            background-color: var(--border-color);
+        }
+
+        .udelbtn {
+            background-color: red;
+            border-radius: 5px;
+            padding: 8px;
+            color: black;
+        }
+
+        .udelbtn:hover {
+            background-color: darkred;
+        }
+
         .hidden {
             display: none;
         }
@@ -124,16 +161,16 @@
 </head>
 
 <body>
-<%@ include file="../include/abase.jsp"%>
+<%@ include file="../include/abase.jsp" %>
 
 <section class="dashboard">
 
     <div class="plist">
 
         <div class="topnav">
-            <form>
+            <form action="admin?page=searchuser" method="post">
                 <div class="sbar">
-                    <input type="text" class="sfield" placeholder="Search" />
+                    <input type="text" class="sfield" name="sresult" placeholder="Search"/>
                     <button type="submit" class="sicon">
                         <i class="uil uil-search"></i>
                     </button>
@@ -150,17 +187,22 @@
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Password</th>
-                        <th></th>
+                        <th id="action">Action</th>
                     </tr>
                     </thead>
                     <tbody id="paginated-list" data-current-page="1" aria-live="polite">
-                    <tr>
-                        <td>1005</td>
-                        <td>Name1</td>
-                        <td>email@email.com</td>
-                        <td>pword</td>
-                        <td></td>
-                    </tr>
+                    <c:forEach var="us" items="${ulist}" varStatus="status">
+                        <tr>
+                            <td>${us.id}</td>
+                            <td>${us.fullName}</td>
+                            <td>${us.email}</td>
+                            <td>${us.password}</td>
+                            <td class="act">
+                                <a href="admin?page=editu&uid=${us.id}" class="ueditbtn"><i class="uil uil-edit"></i>Edit</a>
+                                <a href="admin?page=deleteuser&id=${us.id}" class="udelbtn"><i class="uil uil-x"></i>Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -67,6 +68,10 @@
             outline: none;
             background-color: var(--title-icon-color);
         }
+
+        .peditbtn:hover {
+            background-color: var(--box3-color);
+        }
     </style>
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -87,17 +92,17 @@
 
         <div class="form-container">
             <form action="user?page=editproject" method="post" class="addform">
+                <c:forEach var="project" items="${pdetail}">
+                    <label>Project Name:</label>
+                    <input type="text" class="pfield" name="pname" value="${project.pname}">
 
-                <label>Project Name:</label>
-                <input type="text" class="pfield" name="pname" value="${pname}">
-
-                <label>Visibility:</label>
-                <select class="status" name="status" placeholder="Select">
-                    <option value="" disabled selected>${pstatus}</option>
-                    <option value="public">public</option>
-                    <option value="private">private</option>
-                </select>
-
+                    <label>Visibility:</label>
+                    <select class="status" name="status" placeholder="Select">
+                        <option value="" disabled selected>Select</option>
+                        <option value="public">public</option>
+                        <option value="private">private</option>
+                    </select>
+                </c:forEach>
                 <input type="submit" value="Edit" class="peditbtn">
 
             </form>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -80,6 +81,51 @@
             padding-bottom: 10px;
         }
 
+        .result:hover {
+            background-color: var(--box3-color);
+        }
+
+        .task-table a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        #action {
+            text-align: center;
+            width: 25%;
+        }
+
+        .act {
+            text-align: center;
+        }
+
+        .act a{
+            text-decoration: none;
+        }
+
+        .ueditbtn {
+            background-color: var(--box3-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .ueditbtn:hover {
+            background-color: var(--border-color);
+        }
+
+        .udelbtn {
+            background-color: red;
+            border-radius: 5px;
+            padding: 8px;
+            color: black;
+        }
+
+        .udelbtn:hover {
+            background-color: darkred;
+        }
+
         .hidden {
             display: none;
         }
@@ -131,9 +177,9 @@
     <div class="plist">
 
         <div class="topnav">
-            <form>
+            <form action="admin?page=searchproject" method="post">
                 <div class="sbar">
-                    <input type="text" class="sfield" placeholder="Search"/>
+                    <input type="text" class="sfield" name="sresult" placeholder="Search"/>
                     <button type="submit" class="sicon">
                         <i class="uil uil-search"></i>
                     </button>
@@ -149,16 +195,21 @@
                         <th>PID</th>
                         <th>Project Name</th>
                         <th>Status</th>
-                        <th></th>
+                        <th id="action">Action</th>
                     </tr>
                     </thead>
                     <tbody id="paginated-list" data-current-page="1" aria-live="polite">
-                    <tr>
-                        <td>1005</td>
-                        <td>Project1</td>
-                        <td>Visibility</td>
-                        <td></td>
-                    </tr>
+                    <c:forEach var="pro" items="${plist}">
+                        <tr class="result">
+                            <td>${pro.pid}</td>
+                            <td><a href="admin?page=tasklist&pid=${pro.pid}&pname=${pro.pname}">${pro.pname}</a></td>
+                            <td>${pro.pstatus}</td>
+                            <td class="act">
+                                <a href="admin?page=editp&pid=${pro.pid}" class="ueditbtn"><i class="uil uil-edit"></i>Edit</a>
+                                <a href="admin?page=deleteproject&id=${pro.pid}" class="udelbtn"><i class="uil uil-x"></i>Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
