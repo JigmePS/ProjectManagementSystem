@@ -45,11 +45,7 @@
 
         <div id="Line1"></div>
 
-        <a href="user?page=forgot" id="ForgotPassword">
-            Forgot password?
-        </a>
-
-        <span id="divide">.</span>
+        <span id="NewUser">New User?</span>
 
         <a href="user?page=newUsers" id="SignUpForAnAccount">
             Sign up for an account

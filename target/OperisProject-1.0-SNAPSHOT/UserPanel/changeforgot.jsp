@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/forgot.css">
 
-    <title>Forgot Password</title>
+    <title>Set New Password</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     <div id="Case">
 
             <span id="ForgotPassword">
-                Forgot Password?
+                Set New Password
             </span>
         <span id="UseYourEmailToRecoverYourPassword">
                 Use your email to recover your password

@@ -149,8 +149,8 @@ body {
     top: 266px;
 }
 
-#ForgotPassword {
-    color: rgb(0, 82, 204);
+#NewUser {
+    color: rgb(108, 116, 130);
     text-overflow: ellipsis;
     font-size: 14px;
     font-family: Roboto, sans-serif;
@@ -159,24 +159,9 @@ body {
     text-align: center;
     width: 144px;
     position: absolute;
-    left: 46px;
+    left: 50px;
     top: 288px;
     text-decoration: none;
-}
-
-#divide {
-    color: gray;
-    font-size: 50px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 300;
-    line-height: 29px;
-    text-align: center;
-    width: 144px;
-    position: absolute;
-    left: 120px;
-    top: 275px;
-    text-decoration: none;
-    padding-right: 5px;
 }
 
 #SignUpForAnAccount {
@@ -189,7 +174,7 @@ body {
     text-align: center;
     width: 185px;
     position: absolute;
-    left: 186px;
+    left: 180px;
     top: 288px;
     text-decoration: none;
 }
