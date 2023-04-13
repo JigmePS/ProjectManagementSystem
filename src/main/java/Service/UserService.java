@@ -5,7 +5,6 @@ import Model.Um;
 
 import java.sql.*;
 import java.util.*;
-
 public class UserService {
 
     public void insertUser(Um user) {

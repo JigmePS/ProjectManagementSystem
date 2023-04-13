@@ -500,6 +500,14 @@
             max-width: 30px;
             height: auto;
         }
+
+        .top {
+            color: var(--text-color);
+        }
+
+        .number {
+            font-size: xx-large;
+        }
     </style>
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -560,7 +568,37 @@
 </nav>
 
 <section class="dashboard">
-    <div>Welcome ${fname}</div>
+
+    <div class="top">
+        <div class="search-box">
+            <h1>Project Manager</h1>
+        </div>
+    </div>
+
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <i class="uil uil-compress-point"></i>
+                <span class="text">Features</span>
+            </div>
+
+            <div class="boxes">
+                <div class="box box1">
+                    <i class="uil uil-chart"></i>
+                    <span class="number">Project Management</span>
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-book"></i>
+                    <span class="number">Task Management</span>
+                </div>
+                <div class="box box3">
+                    <i class="uil uil-search"></i>
+                    <span class="number">Search Projects</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <script>

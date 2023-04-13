@@ -93,7 +93,7 @@ public class AdminService {
     }
 
     public void editUser(Um user) {
-        String query = "update user set fname=?,email=?,password=?" +
+        String query = "update user set fname=?,email=?" +
                 "where uid=?"; // same as database
 
         PreparedStatement preparedStatements = new DBConnection().getStatement(query);  // execute parametrized query
@@ -101,25 +101,12 @@ public class AdminService {
         try {
             preparedStatements.setString(1, user.getFullName());
             preparedStatements.setString(2, user.getEmail());
-            preparedStatements.setString(3, user.getPassword());
-            preparedStatements.setInt(4, user.getId());
+            preparedStatements.setString(3, user.getPassword());            preparedStatements.setInt(3, user.getId());
 
             preparedStatements.execute();
 
         } catch (
                 SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteUser(int id) {
-        String query = "delete from user where uid = ?";
-        PreparedStatement ps = new DBConnection().getStatement(query);
-
-        try {
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

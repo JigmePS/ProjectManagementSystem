@@ -5,8 +5,8 @@ import java.sql.*;
 import java.util.*;
 
 import DBConnection.DBConnection;
+import Hashing.HashPassword;
 import Model.Um;
-import Service.AdminService;
 import Service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -33,7 +33,7 @@ public class UserServlet extends HttpServlet {
         if (action.equalsIgnoreCase("login")) {
 
             String email = request.getParameter("email");
-            String password = (request.getParameter("password"));
+            String password = (HashPassword.hashPassword(request.getParameter("password")));
             System.out.println(email + " " + password + " ");
 
             Um um = new UserService().getUser(email, password);
@@ -69,13 +69,13 @@ public class UserServlet extends HttpServlet {
 
         }
 
-        //To redirect in Forgot Password Page
+        //To redirect to Forgot Password Page
         if (action.equalsIgnoreCase("forgot")) {
             RequestDispatcher rd = request.getRequestDispatcher("UserPanel/forgot.jsp");
             rd.forward(request, response);
         }
 
-        //To redirect in Register Page
+        //To redirect to Register Page
         if (action.equalsIgnoreCase("newUsers")) {
             String email = request.getParameter("email");
 
@@ -91,7 +91,7 @@ public class UserServlet extends HttpServlet {
 
             user.setEmail(request.getParameter("email"));
             user.setFullName(request.getParameter("fname"));
-            user.setPassword(request.getParameter("password"));
+            user.setPassword(HashPassword.hashPassword(request.getParameter("password")));
 
             new UserService().insertUser(user);
 
@@ -265,8 +265,6 @@ public class UserServlet extends HttpServlet {
         if (action.equalsIgnoreCase("editt")) {
             int tid = Integer.parseInt(request.getParameter("tid"));
 
-            out.print("listtasks");
-
             HttpSession session = request.getSession();
             int pid = (int) session.getAttribute("pid");
             session.setAttribute("tid", tid);
@@ -409,6 +407,7 @@ public class UserServlet extends HttpServlet {
         if (action.equalsIgnoreCase("deleteproject")) {
             HttpSession session = request.getSession();
             int pid = (int) session.getAttribute("pid");
+            int uid = (int) session.getAttribute("uid");
 
             Um project = new Um();
 
@@ -416,9 +415,9 @@ public class UserServlet extends HttpServlet {
 
             System.out.print("Data Deleted");
 
-            List<Um> projectList = new AdminService().getPList();
+            List<Um> projectList = new UserService().getYourProjectList(uid);
 
-            request.setAttribute("plist", projectList);
+            request.setAttribute("yourplist", projectList);
             RequestDispatcher rd = request.getRequestDispatcher("UserPanel/yourprojects.jsp");
             rd.forward(request, response);
         }
@@ -538,8 +537,8 @@ public class UserServlet extends HttpServlet {
             HttpSession session = request.getSession();
             int uid = (int) session.getAttribute("uid");
 
-            user.setPassword(request.getParameter("tpassword"));
-            user.setNewPassword(request.getParameter("npassword"));
+            user.setPassword(HashPassword.hashPassword(request.getParameter("tpassword")));
+            user.setNewPassword(HashPassword.hashPassword(request.getParameter("npassword")));
 
             new UserService().changePassword(user, uid);
 

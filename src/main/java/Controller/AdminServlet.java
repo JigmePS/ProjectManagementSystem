@@ -7,7 +7,6 @@ import java.util.*;
 import DBConnection.DBConnection;
 import Model.Um;
 import Service.AdminService;
-import Service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -87,31 +86,16 @@ public class AdminServlet extends HttpServlet {
             int uid = Integer.parseInt(request.getParameter("uid"));
             String fname = request.getParameter("fname");
             String email = request.getParameter("email");
-            String password = request.getParameter("password");
 
             Um user = new Um();
 
             user.setFullName(fname);
             user.setEmail(email);
-            user.setPassword(password);
 
             user.setId(uid);
 
             new AdminService().editUser(user);
 
-            List<Um> userList = new AdminService().getUList();
-
-            request.setAttribute("ulist", userList);
-            RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/suserlist.jsp");
-            rd.forward(request, response);
-        }
-
-        //To delete user
-        if (action.equalsIgnoreCase("deleteuser"))
-        {
-            int id = Integer.parseInt(request.getParameter("id"));
-            AdminService adminService = new AdminService();
-            adminService.deleteUser(id);
             List<Um> userList = new AdminService().getUList();
 
             request.setAttribute("ulist", userList);

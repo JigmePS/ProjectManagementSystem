@@ -106,17 +106,6 @@
             background-color: var(--border-color);
         }
 
-        .udelbtn {
-            background-color: red;
-            border-radius: 5px;
-            padding: 8px;
-            color: black;
-        }
-
-        .udelbtn:hover {
-            background-color: darkred;
-        }
-
         .hidden {
             display: none;
         }
@@ -186,7 +175,6 @@
                         <th>UID</th>
                         <th>Full Name</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th id="action">Action</th>
                     </tr>
                     </thead>
@@ -196,10 +184,8 @@
                             <td>${us.id}</td>
                             <td>${us.fullName}</td>
                             <td>${us.email}</td>
-                            <td>${us.password}</td>
                             <td class="act">
                                 <a href="admin?page=editu&uid=${us.id}" class="ueditbtn"><i class="uil uil-edit"></i>Edit</a>
-                                <a href="admin?page=deleteuser&id=${us.id}" class="udelbtn"><i class="uil uil-x"></i>Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

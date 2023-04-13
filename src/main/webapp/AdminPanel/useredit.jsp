@@ -100,9 +100,6 @@
                     <label>Email:</label>
                     <input type="text" class="pfield" value="${user.email}" name="email">
 
-                    <label>Password:</label>
-                    <input type="text" class="pfield" value="${user.password}" name="password">
-
                     <input type="submit" value="Edit" class="peditbtn">
                 </form>
             </c:forEach>
