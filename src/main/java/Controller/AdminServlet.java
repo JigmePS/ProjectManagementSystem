@@ -214,6 +214,9 @@ public class AdminServlet extends HttpServlet {
         if (action.equalsIgnoreCase("editt")) {
             int tid = Integer.parseInt(request.getParameter("tid"));
 
+            HttpSession session = request.getSession();
+            session.setAttribute("tid", tid);
+
             Um user = new Um();
 
             List<Um> taskList = new AdminService().getTaskDetail(tid);

@@ -177,7 +177,7 @@ public class UserService {
     }
 
     public void editTask(Um task) {
-        String query = "update task set date=?,tname=?,member=?,deliverable=?,image=?," +
+        String query = "update task set date=?,tname=?,member=?,deliverable=?,image=?" +
                 "where tid=?"; // same as database
 
         PreparedStatement preparedStatements = new DBConnection().getStatement(query);  // execute parametrized query
