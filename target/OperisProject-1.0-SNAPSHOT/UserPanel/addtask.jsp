@@ -86,7 +86,7 @@
         </div>
 
         <div class="form-container">
-            <form action="user?page=addtask" method="post" class="addform">
+            <form action="user?page=addtask" method="post" enctype="multipart/form-data" class="addform">
                 <label>Date:</label>
                 <input type="date" class="dfield" name="date">
 

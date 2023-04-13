@@ -16,7 +16,7 @@
             font-size: xx-large;
         }
     </style>
-    
+
     <title>Admin Dashboard</title>
 </head>
 
