@@ -272,6 +272,19 @@ public class UserService {
         }
     }
 
+    public void deleteProjectTasks(int pid){
+        String query = "delete from task where pid = ?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+
+        try{
+            ps.setInt(1,pid);
+            ps.execute();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Um> getNotProjectList(int uid) {
         System.out.println("getProjectList");
         List<Um> projectList = new ArrayList<>();

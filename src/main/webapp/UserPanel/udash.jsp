@@ -505,8 +505,8 @@
             color: var(--text-color);
         }
 
-        .number {
-            font-size: xx-large;
+        a {
+            text-decoration: none;
         }
     </style>
 
@@ -585,7 +585,9 @@
             <div class="boxes">
                 <div class="box box1">
                     <i class="uil uil-chart"></i>
-                    <span class="number">Project Management</span>
+                    <a href="user?page=listyourprojects">
+                        <span class="number">Project Management</span>
+                    </a>
                 </div>
                 <div class="box box2">
                     <i class="uil uil-book"></i>
@@ -593,7 +595,9 @@
                 </div>
                 <div class="box box3">
                     <i class="uil uil-search"></i>
-                    <span class="number">Search Projects</span>
+                    <a href="user?page=searchbox">
+                        <span class="number">Search Projects</span>
+                    </a>
                 </div>
             </div>
         </div>

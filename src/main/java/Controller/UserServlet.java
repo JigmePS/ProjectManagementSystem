@@ -7,6 +7,7 @@ import java.util.*;
 import DBConnection.DBConnection;
 import Hashing.HashPassword;
 import Model.Um;
+import Service.AdminService;
 import Service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -225,10 +226,24 @@ public class UserServlet extends HttpServlet {
 
         //To add task
         if (action.equalsIgnoreCase("addtask")) {
+            Um task = new Um();
+
+//            Part deliverable = request.getPart("deliverable");
+//            String file = deliverable.getSubmittedFileName();
+//            String filePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\files\\deliverable" + file;
+//
+//            Part imge = request.getPart("image");
+//            String image = imge.getSubmittedFileName();
+//            String imagePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\files\\image" + image;
+//
+//            for (Part part : request.getParts()) {
+//                part.write(filePath);
+//                part.write(imagePath);
+//            }
+//            System.out.println(filePath);
+
             HttpSession session = request.getSession();
             int pid = (int) session.getAttribute("pid");
-
-            Um task = new Um();
 
             task.setTdate(request.getParameter("date"));
             task.setTname(request.getParameter("tname"));
@@ -239,8 +254,8 @@ public class UserServlet extends HttpServlet {
             task.setPid(pid);
 
             new UserService().insertTask(task);
-
             System.out.print("Data Inserted");
+
 
             Um user = new Um();
 
@@ -409,9 +424,9 @@ public class UserServlet extends HttpServlet {
             int pid = (int) session.getAttribute("pid");
             int uid = (int) session.getAttribute("uid");
 
-            Um project = new Um();
-
-            new UserService().deleteProject(pid);
+            UserService userService = new UserService();
+            userService.deleteProject(pid);
+            userService.deleteProjectTasks(pid);
 
             System.out.print("Data Deleted");
 

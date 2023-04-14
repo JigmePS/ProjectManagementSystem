@@ -24,6 +24,16 @@ public class Um {
 
     private Boolean admin;
 
+    private Boolean user;
+
+    public Boolean getUser() {
+        return user;
+    }
+
+    public void setUser(Boolean user) {
+        this.user = user;
+    }
+
     private String pname;
 
     private String pstatus;

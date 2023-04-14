@@ -15,6 +15,10 @@
         .number {
             font-size: xx-large;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 
     <title>Admin Dashboard</title>
@@ -41,11 +45,15 @@
             <div class="boxes">
                 <div class="box box1">
                     <i class="uil uil-user"></i>
-                    <span class="number">User Management</span>
+                    <a href="admin?page=userlist">
+                        <span class="number">User Management</span>
+                    </a>
                 </div>
                 <div class="box box2">
                     <i class="uil uil-chart"></i>
-                    <span class="number">Project Management</span>
+                    <a href="admin?page=projectlist">
+                        <span class="number">Project Management</span>
+                    </a>
                 </div>
                 <div class="box box3">
                     <i class="uil uil-book"></i>

@@ -223,6 +223,18 @@ public class AdminService {
         }
     }
 
+    public void deleteProjectTasks(int pid) {
+        String query = "delete from task where pid = ?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+
+        try {
+            ps.setInt(1, pid);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Um> getTList(int pid) {
         List<Um> taskList = new ArrayList<>();
         String query = "select * from task where pid = ? ORDER BY date ASC";

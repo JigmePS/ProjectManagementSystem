@@ -176,8 +176,11 @@ public class AdminServlet extends HttpServlet {
         if (action.equalsIgnoreCase("deleteproject"))
         {
             int id = Integer.parseInt(request.getParameter("id"));
+
             AdminService adminService = new AdminService();
             adminService.deleteProject(id);
+            adminService.deleteProjectTasks(id);
+
             List<Um> projectList = new AdminService().getPList();
 
             request.setAttribute("plist", projectList);
