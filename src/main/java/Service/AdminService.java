@@ -138,7 +138,7 @@ public class AdminService {
     public List<Um> getSearchProject(String sresult) {
         System.out.println("SearchProject");
         List<Um> projectList = new ArrayList<>();
-        String query = "select * from project where name LIKE ?";
+        String query = "SELECT project.id, project.name, project.status, user.fname FROM user JOIN project ON project.uid = user.uid where name LIKE ?";
         System.out.println(query);
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
@@ -150,8 +150,8 @@ public class AdminService {
 
                 user.setPid(rs.getInt("id"));
                 user.setPname(rs.getString("name"));
-                user.setId(rs.getInt("uid"));
                 user.setPstatus(rs.getString("status"));
+                user.setFullName(rs.getString("fname"));
 
                 projectList.add(user);
             }

@@ -125,7 +125,6 @@ public class AdminServlet extends HttpServlet {
         if (action.equalsIgnoreCase("searchproject")) {
 
             out.print("SearchUsers");
-            ;
 
             String sresult = request.getParameter("sresult");
 
