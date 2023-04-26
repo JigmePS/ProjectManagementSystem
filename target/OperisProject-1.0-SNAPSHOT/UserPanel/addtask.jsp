@@ -96,10 +96,10 @@
                 <label>Member:</label>
                 <input type="text" class="field" name="tmember">
 
-                <label>Deliverable (Optional):</label>
+                <label>Deliverable(!):</label>
                 <input type="file" class="field" name="deliverable">
 
-                <label>Image (Optional):</label>
+                <label>Image(!):</label>
                 <input type="file" class="field" name="image">
 
                 <input type="submit" value="Add" class="taddbtn">

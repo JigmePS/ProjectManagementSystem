@@ -92,7 +92,7 @@
 
         <div class="form-container">
             <c:forEach var="task" items="${tdetail}">
-                <form action="admin?page=edittask&tid=${task.tid}" method="post" class="addform">
+                <form action="admin?page=edittask&tid=${task.tid}" method="post" enctype="multipart/form-data" class="addform">
 
                     <label>Date:</label>
                     <input type="date" class="dfield" name="date" value="${task.tdate}">
@@ -103,10 +103,10 @@
                     <label>Member:</label>
                     <input type="text" class="field" name="tmember" value="${task.taskMember}">
 
-                    <label>Deliverable (Optional):</label>
+                    <label>Deliverable(!):</label>
                     <input type="file" class="field" name="deliverable" value="${task.deliverable}">
 
-                    <label>Image (Optional):</label>
+                    <label>Image(!):</label>
                     <input type="file" class="field" name="image" value="${task.imge}">
 
                     <input type="submit" value="Edit" class="teditbtn">

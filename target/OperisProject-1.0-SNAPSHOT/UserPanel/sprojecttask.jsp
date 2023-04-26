@@ -65,6 +65,7 @@
             overflow: hidden;
             width: 100%;
             color: var(--text-color);
+            table-layout: fixed;
         }
 
         .task-table th {
@@ -161,7 +162,7 @@
                     <th>Task</th>
                     <th>Member</th>
                     <th>Deliverable</th>
-                    <th>Images(Optional)</th>
+                    <th>Images</th>
                 </tr>
                 </thead>
                 <tbody id="paginated-list" data-current-page="1" aria-live="polite">

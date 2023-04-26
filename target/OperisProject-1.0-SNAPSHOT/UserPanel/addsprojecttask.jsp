@@ -86,7 +86,7 @@
         </div>
 
         <div class="form-container">
-            <form action="user?page=addpstask" method="post" class="addform">
+            <form action="user?page=addpstask" method="post" enctype="multipart/form-data" class="addform">
                 <label>Date:</label>
                 <input type="date" class="dfield" name="date">
 
@@ -96,10 +96,10 @@
                 <label>Member:</label>
                 <input type="text" class="field" name="tmember">
 
-                <label>Deliverable (Optional):</label>
+                <label>Deliverable:</label>
                 <input type="file" class="field" name="deliverable">
 
-                <label>Image (Optional):</label>
+                <label>Image:</label>
                 <input type="file" class="field" name="image">
 
                 <input type="submit" value="Add" class="taddbtn">

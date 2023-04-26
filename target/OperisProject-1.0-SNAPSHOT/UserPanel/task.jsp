@@ -114,6 +114,7 @@
             overflow: hidden;
             width: 100%;
             color: var(--text-color);
+            table-layout: fixed;
         }
 
         .task-table th {
@@ -130,13 +131,19 @@
             overflow: hidden;
             padding-top: 10px;
             padding-bottom: 10px;
+            width: 17%;
         }
 
         .action {
             text-align: center;
         }
 
-        .task-table a {
+        .task-table .acbtn {
+            max-width: 30px;
+            overflow: hidden;
+        }
+
+        .task-table .abtn {
             text-align: center;
             text-decoration: none;
             padding: 10px 20px;
@@ -223,7 +230,7 @@
                         <th>Task</th>
                         <th>Member</th>
                         <th>Deliverable</th>
-                        <th>Images(Optional)</th>
+                        <th>Images</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -233,10 +240,18 @@
                             <td>${task.tdate}</td>
                             <td>${task.tname}</td>
                             <td>${task.taskMember}</td>
-                            <td>${task.deliverable}</td>
-                            <td>${task.imge}</td>
-                            <td class="action"><a class="editbtn" href="user?page=editt&tid=${task.tid}"><i
-                                    class="uil uil-edit-alt"></i>Edit</a></td>
+                            <td>
+<%--                                <a class="acbtn" href="user?page=download&filePath=${task.deliverable}">--%>
+                                    ${task.deliverable}
+<%--                                </a>--%>
+                            </td>
+                            <td>
+<%--                                <a class="acbtn" href="user?page=download&filePath=${task.imge}">--%>
+                                    ${task.imge}
+<%--                                </a>--%>
+                            </td>
+                            <td class="action"><a class="abtn" href="user?page=editt&tid=${task.tid}">
+                                <i class="uil uil-edit-alt"></i>Edit</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
