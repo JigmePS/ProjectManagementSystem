@@ -1,6 +1,11 @@
 package Controller;
 
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.*;
 
@@ -31,6 +36,7 @@ public class UserServlet extends HttpServlet {
 
         String action = request.getParameter("page");
 
+        //login
         if (action.equalsIgnoreCase("login")) {
 
             String email = request.getParameter("email");
@@ -38,36 +44,25 @@ public class UserServlet extends HttpServlet {
             System.out.println(email + " " + password + " ");
 
             Um um = new UserService().getUser(email, password);
-
             if (um != null) {
-
                 HttpSession session = request.getSession();
                 session.setAttribute("uid", um.getId());
                 session.setAttribute("fname", um.getFullName());
                 session.setAttribute("email", email);
                 request.setAttribute("msg", "Login Successful!");
-
                 if (um.getAdmin()) {
-
                     session.setMaxInactiveInterval(0);
                     RequestDispatcher rd = request.getRequestDispatcher("AdminPanel/adash.jsp");
                     rd.forward(request, response);
-
                 } else {
-
                     RequestDispatcher rd = request.getRequestDispatcher("UserPanel/udash.jsp");
                     rd.forward(request, response);
-
                 }
-
             } else {
-
                 request.setAttribute("msg", "Invalid username or password");
                 RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);
-
             }
-
         }
 
         //To redirect to Forgot Password Page
@@ -107,7 +102,7 @@ public class UserServlet extends HttpServlet {
         }
 
         // send to login page
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase("logins")) {
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);
         }
@@ -218,6 +213,25 @@ public class UserServlet extends HttpServlet {
             rd.forward(request, response);
         }
 
+        //download
+//        if (action.equalsIgnoreCase("download")) {
+//            String filePath = request.getParameter("filePath").replaceAll("\\\\", "/");
+//            System.out.println(filePath);
+//            File downloadFile = new File(filePath);
+//            FileInputStream inputStream = new FileInputStream(downloadFile);
+//            ServletOutputStream outputStream = response.getOutputStream();
+//            response.setContentType("application/octet-stream");
+//            response.setContentLength((int) downloadFile.length());
+//            response.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
+//            byte[] buffer = new byte[4096];
+//            int bytesRead = -1;
+//            while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, bytesRead);
+//            }
+//            inputStream.close();
+//            outputStream.close();
+//        }
+
         //To redirect to Add Task Page
         if (action.equalsIgnoreCase("addt")) {
             RequestDispatcher rd = request.getRequestDispatcher("UserPanel/addtask.jsp");
@@ -228,19 +242,25 @@ public class UserServlet extends HttpServlet {
         if (action.equalsIgnoreCase("addtask")) {
             Um task = new Um();
 
-//            Part deliverable = request.getPart("deliverable");
-//            String file = deliverable.getSubmittedFileName();
-//            String filePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\files\\deliverable" + file;
-//
-//            Part imge = request.getPart("image");
-//            String image = imge.getSubmittedFileName();
-//            String imagePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\files\\image" + image;
-//
-//            for (Part part : request.getParts()) {
-//                part.write(filePath);
-//                part.write(imagePath);
-//            }
-//            System.out.println(filePath);
+            Part deliverable = request.getPart("deliverable");
+            String file = null;
+            String filePath = null;
+            if (deliverable != null) {
+                file = Paths.get(deliverable.getSubmittedFileName()).getFileName().toString();
+                InputStream fileContent = deliverable.getInputStream();
+                Files.copy(fileContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file), StandardCopyOption.REPLACE_EXISTING);
+                filePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file;
+            }
+
+            Part img = request.getPart("image");
+            String image = null;
+            String imagePath = null;
+            if (img != null) {
+                image = Paths.get(img.getSubmittedFileName()).getFileName().toString();
+                InputStream imageContent = img.getInputStream();
+                Files.copy(imageContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image), StandardCopyOption.REPLACE_EXISTING);
+                imagePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image;
+            }
 
             HttpSession session = request.getSession();
             int pid = (int) session.getAttribute("pid");
@@ -248,8 +268,9 @@ public class UserServlet extends HttpServlet {
             task.setTdate(request.getParameter("date"));
             task.setTname(request.getParameter("tname"));
             task.setTaskMember(request.getParameter("tmember"));
-            task.setDeliverable(request.getParameter("deliverable"));
-            task.setImge(request.getParameter("image"));
+
+            task.setDeliverable(filePath);
+            task.setImge(imagePath);
 
             task.setPid(pid);
 
@@ -297,17 +318,38 @@ public class UserServlet extends HttpServlet {
 
         //To edit task
         if (action.equalsIgnoreCase("edittask")) {
+
+            Um task = new Um();
+
+            Part deliverable = request.getPart("deliverable");
+            String file = null;
+            String filePath = null;
+            if (deliverable != null) {
+                file = Paths.get(deliverable.getSubmittedFileName()).getFileName().toString();
+                InputStream fileContent = deliverable.getInputStream();
+                Files.copy(fileContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file), StandardCopyOption.REPLACE_EXISTING);
+                filePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file;
+            }
+
+            Part img = request.getPart("image");
+            String image = null;
+            String imagePath = null;
+            if (img != null) {
+                image = Paths.get(img.getSubmittedFileName()).getFileName().toString();
+                InputStream imageContent = img.getInputStream();
+                Files.copy(imageContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image), StandardCopyOption.REPLACE_EXISTING);
+                imagePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image;
+            }
+
             HttpSession session = request.getSession();
             int tid = (int) session.getAttribute("tid");
             int pid = (int) session.getAttribute("pid");
 
-            Um task = new Um();
-
             task.setTdate(request.getParameter("date"));
             task.setTname(request.getParameter("tname"));
             task.setTaskMember(request.getParameter("tmember"));
-            task.setDeliverable(request.getParameter("deliverable"));
-            task.setImge(request.getParameter("image"));
+            task.setDeliverable(filePath);
+            task.setImge(imagePath);
 
             task.setTid(tid);
 
@@ -501,16 +543,37 @@ public class UserServlet extends HttpServlet {
 
         //To add task
         if (action.equalsIgnoreCase("addpstask")) {
-            HttpSession session = request.getSession();
-            int pid = (int) session.getAttribute("pid");
 
             Um task = new Um();
+
+            Part deliverable = request.getPart("deliverable");
+            String file = null;
+            String filePath = null;
+            if (deliverable != null) {
+                file = Paths.get(deliverable.getSubmittedFileName()).getFileName().toString();
+                InputStream fileContent = deliverable.getInputStream();
+                Files.copy(fileContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file), StandardCopyOption.REPLACE_EXISTING);
+                filePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file;
+            }
+
+            Part img = request.getPart("image");
+            String image = null;
+            String imagePath = null;
+            if (img != null) {
+                image = Paths.get(img.getSubmittedFileName()).getFileName().toString();
+                InputStream imageContent = img.getInputStream();
+                Files.copy(imageContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image), StandardCopyOption.REPLACE_EXISTING);
+                imagePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image;
+            }
+
+            HttpSession session = request.getSession();
+            int pid = (int) session.getAttribute("pid");
 
             task.setTdate(request.getParameter("date"));
             task.setTname(request.getParameter("tname"));
             task.setTaskMember(request.getParameter("tmember"));
-            task.setDeliverable(request.getParameter("deliverable"));
-            task.setImge(request.getParameter("image"));
+            task.setDeliverable(filePath);
+            task.setImge(imagePath);
 
             task.setPid(pid);
 

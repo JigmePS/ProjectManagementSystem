@@ -1,6 +1,9 @@
 package Controller;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.*;
 
@@ -232,6 +235,27 @@ public class AdminServlet extends HttpServlet {
 
         //To edit task
         if (action.equalsIgnoreCase("edittask")) {
+
+            Part deliverable = request.getPart("deliverable");
+            String file = null;
+            String filePath = null;
+            if (deliverable != null) {
+                file = Paths.get(deliverable.getSubmittedFileName()).getFileName().toString();
+                InputStream fileContent = deliverable.getInputStream();
+                Files.copy(fileContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file), StandardCopyOption.REPLACE_EXISTING);
+                filePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\deliverable\\" + file;
+            }
+
+            Part img = request.getPart("image");
+            String image = null;
+            String imagePath = null;
+            if (img != null) {
+                image = Paths.get(img.getSubmittedFileName()).getFileName().toString();
+                InputStream imageContent = img.getInputStream();
+                Files.copy(imageContent, Paths.get("C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image), StandardCopyOption.REPLACE_EXISTING);
+                imagePath = "C:\\Users\\inozu\\workspace\\OperisProject\\src\\main\\webapp\\upload\\image\\" + image;
+            }
+
             HttpSession session = request.getSession();
             int pid = (int) session.getAttribute("pid");
             int tid = Integer.parseInt(request.getParameter("tid"));
@@ -239,16 +263,14 @@ public class AdminServlet extends HttpServlet {
             String tdate = request.getParameter("date");
             String tname = request.getParameter("tname");
             String tmember = request.getParameter("tmember");
-            String deliverable = request.getParameter("deliverable");
-            String image = request.getParameter("image");
 
             Um task = new Um();
 
             task.setTdate(tdate);
             task.setTname(tname);
             task.setTaskMember(tmember);
-            task.setDeliverable(deliverable);
-            task.setImge(image);
+            task.setDeliverable(filePath);
+            task.setImge(imagePath);
 
             task.setTid(tid);
 

@@ -51,7 +51,7 @@
         <span id="AlreadyHaveAnAccount">
                 Already have an account?
             </span>
-        <a href="user?page=login" id="LogIn">
+        <a href="user?page=logins" id="LogIn">
             Log in
         </a>
 

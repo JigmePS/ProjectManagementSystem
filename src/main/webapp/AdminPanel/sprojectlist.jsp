@@ -195,6 +195,7 @@
                         <th>PID</th>
                         <th>Project Name</th>
                         <th>Status</th>
+                        <th>User</th>
                         <th id="action">Action</th>
                     </tr>
                     </thead>
@@ -204,6 +205,7 @@
                             <td>${pro.pid}</td>
                             <td><a href="admin?page=tasklist&pid=${pro.pid}&pname=${pro.pname}">${pro.pname}</a></td>
                             <td>${pro.pstatus}</td>
+                            <td>${pro.fullName}</td>
                             <td class="act">
                                 <a href="admin?page=editp&pid=${pro.pid}" class="ueditbtn"><i class="uil uil-edit"></i>Edit</a>
                                 <a href="admin?page=deleteproject&id=${pro.pid}" class="udelbtn"><i class="uil uil-x"></i>Delete</a>

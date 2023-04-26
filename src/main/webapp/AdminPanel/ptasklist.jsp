@@ -37,6 +37,7 @@
             overflow: hidden;
             width: 100%;
             color: var(--text-color);
+            table-layout: fixed;
         }
 
         .task-table th {
@@ -155,7 +156,7 @@
                         <th>Task</th>
                         <th>Member</th>
                         <th>Deliverable</th>
-                        <th>Images(Optional)</th>
+                        <th>Images</th>
                         <th id="action">Action</th>
                     </tr>
                     </thead>
